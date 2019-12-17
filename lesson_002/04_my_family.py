@@ -4,29 +4,24 @@
 # Создайте списки:
 
 # моя семья (минимум 3 элемента, есть еще дедушки и бабушки, если что)
-my_family = ['mother' 'father' 'sister']
+my_family = ['Лида' + 'Вася' + 'Соня']
 
 # список списков приблизителного роста членов вашей семьи
-# TODO У вас получился список словарей, что тоже неплохо, но не совсем то
-my_family_height = {
-    'mother': (167),  # TODO Вместо словаря вида ключ: значение, используйте список [имя, рост]
-    'father': (174),
-    'sister': (158),
-}
+my_family_height = [['Лида', 167], ['Вася', 174], ['Соня', 158]]
 
 # Выведите на консоль рост отца в формате
 #   Рост отца - ХХ см
 
-height_father = (174)  # TODO Подобные скобки не нужны, ни тут, ни выше
+height_father = 174
 
 # Выведите на консоль общий рост вашей семьи как сумму ростов всех членов
 #   Общий рост моей семьи - ХХ см
 
-mother = my_family_height['mother']
-father = my_family_height['father']
-sister = my_family_height['sister']
+lida = 167
+vasya = 174
+sonya = 158
 
-total_height = (mother + father + sister)
+total_height = (lida + vasya + sonya)
 
 print('father_height:', height_father, 'cm')
 print('total_height:', total_height, 'cm')
