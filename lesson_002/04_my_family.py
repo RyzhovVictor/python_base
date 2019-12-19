@@ -12,15 +12,14 @@ my_family_height = [['Лида', 167], ['Вася', 174], ['Соня', 158]]
 # Выведите на консоль рост отца в формате
 #   Рост отца - ХХ см
 
-height_father = 174  # TODO Рост надо получить с помощью индексов из списка
-# TODO что-то вроде cписок[x][y]
+height_father = my_family_height[1][1]
 
 # Выведите на консоль общий рост вашей семьи как сумму ростов всех членов
 #   Общий рост моей семьи - ХХ см
-# TODO И с этими 3 так же
-lida = 167
-vasya = 174
-sonya = 158
+
+lida = my_family_height[0][1]
+vasya = my_family_height[1][1]
+sonya = my_family_height[2][1]
 
 total_height = (lida + vasya + sonya)
 
