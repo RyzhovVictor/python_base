@@ -47,3 +47,4 @@ total_time_1 = (round(
     violator_songs_dict['Sweetest Perfection'] + violator_songs_dict['Policy of Truth'] + violator_songs_dict[
         'Blue Dress'], 2))
 print('А другие три песни звучат', total_time_1, 'минут')
+#зачет!

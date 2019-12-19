@@ -25,3 +25,5 @@ total_height = (lida + vasya + sonya)
 
 print('father_height:', height_father, 'cm')
 print('total_height:', total_height, 'cm')
+
+#зачет!
