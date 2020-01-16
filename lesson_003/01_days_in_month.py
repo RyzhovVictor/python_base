@@ -10,34 +10,23 @@
 user_input = input("Введите, пожалуйста, номер месяца: ")
 month = int(user_input)
 print('Вы ввели', month)
-# TODO По сути нам нужно получить один из 3 вариантов (30, 31, 28)
-# TODO Поэтому нам понадобится 3 условия if/elif и одно else для некорректных вариантов
-# TODO Нужно сгруппировать номера месяцев в списки и проверять с помощью оператора 'in' в какой из них входит
-# TODO ввод пользователя
-if user_input == '1':
-    print('В месяце 31 день')
-elif user_input == '2':
-    print('В месяце 28 дней')
-elif user_input == '3':
-    print('В месяце 31 дней')
-elif user_input == '4':
-    print('В месяце 30 дней')
-elif user_input == '5':
-    print('В месяце 31 дней')
-elif user_input == '6':
-    print('В месяце 30 дней')
-elif user_input == '7':
-    print('В месяце 31 дней')
-elif user_input == '8':
-    print('В месяце 31 дней')
-elif user_input == '9':
-    print('В месяце 30 дней')
-elif user_input == '10':
-    print('В месяце 31 дней')
-elif user_input == '11':
-    print('В месяце 30 дней')
-elif user_input == '12':
-    print('В месяце 31 дней')
+
+month_number = {'1': 31,
+                '2': 28,
+                '3': 31,
+                '4': 30,
+                '5': 31,
+                '6': 30,
+                '7': 31,
+                '8': 31,
+                '9': 30,
+                '10': 31,
+                '11': 30,
+                '12': 31,
+                }
+if user_input in month_number:
+    month_number.get(user_input)
+    print(f'В месяце {month_number.get(user_input)} дней')
 else:
     print('Введенное значение не распознано, пожалуйста, введите номер месяца от 1 до 12')
 
