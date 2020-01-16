@@ -21,11 +21,11 @@ paper_x, paper_y = 8, 9
 # (просто раскоментировать нужную строку и проверить свой код)
 
 if (envelop_x > paper_x) and (envelop_y > paper_y):
-    print('Да')
-elif (envelop_x < paper_x) != (envelop_y < paper_y):
+    print('Да')  # TODO Это верное условие (надо бы ещё проверить переворот листа x > y, y > x
+elif (envelop_x < paper_x) != (envelop_y < paper_y):  # TODO А вот эти условия не понятные True != False?
     print('Нет')
-elif (envelop_x < paper_x) == (envelop_y < paper_y):
-    print('Нет')
+elif (envelop_x < paper_x) == (envelop_y < paper_y):  # TODO А тут True == False. К чему такие проверки?
+    print('Нет')  # TODO Лучше верные варианты обработать а все неверные оставить в else
 
 # Усложненное задание, решать по желанию.
 # Заданы размеры hole_x, hole_y прямоугольного отверстия и размеры brick_х, brick_у, brick_z кирпича (все размеры
