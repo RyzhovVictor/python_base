@@ -10,17 +10,12 @@
 #   Студенту надо попросить ХХХ.ХХ рублей
 
 educational_grant, expenses = 10000, 12000
-expenses -= educational_grant
-total_expenses = expenses
+total_expenses = expenses - educational_grant
 i = 0
-while i < 9:
+while i < 10:
     i += 1
-    total_expenses *= 1.03  # TODO Процент надо начислять на 12000, а не на 2000
-    if i >= 9:  # TODO И надо будет обойтись без этих условий.
-        continue  # TODO Количество итераций нужно задать только условием цикла
+    total_expenses = expenses
     total_expenses += expenses
-    if i > 1:  # TODO Это условие нужно чтобы учесть первый месяц без процентов?
-        continue  # TODO В любом случае оно тоже тут быть не должно. Если первый месяц должен быть без процентов
-    total_expenses += expenses  # TODO То можно просто сперва добавить расходы, а затем к расходам добавить проценты
-else:  # TODO Тогда в следующем месяца расходы будут с процентами, а в первом без :)
-    print('Студенту надо попросить', round(total_expenses), 'рублей')
+    expenses *= 1.03
+print('Студенту надо попросить', round(total_expenses), 'рублей')
+
