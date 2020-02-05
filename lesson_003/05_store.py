@@ -60,8 +60,10 @@ price_total = 0
 for a, b in goods.items():
     g = store[goods[a]]
     for x in g:
-        count_total += g[0]['quantity']
-        price_total += g[0]['price']
+        count = g[0]['quantity']
+        price = g[0]['price']
+        count_total += count
+        price_total += price
     print(a, ':', b)
     print(g)
     print(count_total, ':',  price_total)
