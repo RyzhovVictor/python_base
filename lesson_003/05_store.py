@@ -57,13 +57,23 @@ store = {
 
 count_total = 0
 price_total = 0
+# TODO Во-первых нэйминг - все эти a,b,g,x надо заменить на нормальные названия, полезные
 for a, b in goods.items():
-    g = store[goods[a]]
+    g = store[goods[a]]  # TODO Во-вторых goods[a] можно заменить на b, для этого и вводим items()
     for x in g:
-        count = g[0]['quantity']
+        count = g[0]['quantity']  # TODO Далее, здесь вы берете g[0], а нужно использовать x
+        # TODO Если берете g[0] то у вас каждую итерацию значения будут прибавляться из первого элемента списка
+        # [
+        #         {'quantity': 50, 'price': 100},
+        #         {'quantity': 12, 'price': 95},
+        #         {'quantity': 43, 'price': 97},
+        #     ]
+        # TODO Например вот этот список. Цикл по нему запустит 3 итерации, тк 3 элемента в списке
+        # TODO Но каждый раз вы будете прибавлять количество из первого элемента (50+50+50)
+        # TODO А должно быть 50+12+43
         price = g[0]['price']
         count_total += count
-        price_total += price
+        price_total += price  # TODO А здесь нужна стоимость, а не цена (цена*количество)
     print(a, ':', b)
     print(g)
     print(count_total, ':',  price_total)

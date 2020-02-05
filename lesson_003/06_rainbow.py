@@ -13,16 +13,19 @@ sd.resolution = (1200, 600)
 start_point = sd.get_point(50, 50)
 end_point = sd.get_point(350, 450)
 
-
-def rainbow(line, step):
+# TODO Лучше пока не использовать функцию, либо доделывать её до конца
+# TODO Чтобы она использовала точку, которую ей передают параметром, а не переменную start_point/end_point
+# TODO Которые расположены "снаружи" функции.
+def rainbow(line, step):  # TODO Тут в параметры надо будет добавить два параметра
     sd.line(start_point=start_point, end_point=end_point, color=sd.COLOR_BLACK, width=4)
+    # TODO И тут в sd.line использовать эти параметры вместо начальной и конечной точки
     line += step
 
 
 for x in range(100, 701, 100):
     start_point = sd.get_point(x, 50)
     end_point = sd.get_point(x, 450)
-    rainbow(line=100, step=5)
+    rainbow(line=100, step=5)  # TODO Здесь на место этих параметров надо будет передавать start и end point-s
 
 # Усложненное задание, делать по желанию.
 # Нарисовать радугу дугами от окружности (cсм sd.circle) за нижним краем экрана,
