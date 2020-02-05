@@ -67,5 +67,3 @@ for a, b in goods.items():
     print(a, ':', b)
     print(g)
     print(count_total, ':',  price_total)
-
-
