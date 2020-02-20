@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 # (цикл for)
-import row as row
+
 import simple_draw as sd
 
 # Нарисовать стену из кирпичей. Размер кирпича - 100х50
