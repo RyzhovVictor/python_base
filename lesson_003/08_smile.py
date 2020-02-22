@@ -52,3 +52,5 @@ for _ in range(10):
     smile(point_random, point_random, color)
 
 sd.pause()
+# Красота! :)))
+#зачет!

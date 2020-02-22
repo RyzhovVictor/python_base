@@ -59,8 +59,10 @@ for name_goods, code_goods in goods.items():
     inside_store = store[code_goods]
     count_total = 0
     price_total = 0
-    for x in inside_store:
-        count = x['quantity']
+    for x in inside_store:  # TODO Нэйминг. Использовать имена вместо букв нежелательно, особенно когда можно
+        # TODO придумать какое-то полезное название
+        count = x['quantity']  # TODO Вот например здесь далее эта переменная используется с ключами
+        # TODO "количество" и "цена". Хорошо было бы, чтобы название сочеталось с ними, например мебель[цена]
         count_total += count
         price = x['price']
         price_total += price
