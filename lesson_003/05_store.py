@@ -59,10 +59,10 @@ for name_goods, code_goods in goods.items():
     inside_store = store[code_goods]
     count_total = 0
     price_total = 0
-    for x in inside_store:
-        count = x['quantity']
+    for furniture in inside_store:
+        count = furniture['quantity']
         count_total += count
-        price = x['price']
+        price = furniture['price']
         price_total += price
         all_cost = price_total * count_total
     print(name_goods, '-', count_total, 'шт.', 'стоимость', all_cost, 'руб.')
