@@ -17,4 +17,4 @@ while month < 9:
     expenses *= 1.03
     total_expenses += expenses - educational_grant
 print('Студенту надо попросить', round(total_expenses), 'рублей')
-
+#зачет!
