@@ -9,10 +9,14 @@ import simple_draw as sd
 
 sd.resolution = (1200, 600)
 
+brick_x, brick_y = 100, 50
 step = 0
-for y in range(0, 600, 50):
+for row, y in enumerate(range(0, sd.resolution[1], brick_y)):
     y1 = y + 50
-    step -= 50
+    if row % 2 == 0:
+        step = -50
+    else:
+        step = 0
     for x in range(step, 1200, 100):
         x1 = x + 100
         left_bottom = sd.get_point(x, y)
