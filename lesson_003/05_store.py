@@ -67,3 +67,5 @@ for name_goods, code_goods in goods.items():
         all_cost = price_total * count_total
     print(name_goods, '-', count_total, 'шт.', 'стоимость', all_cost, 'руб.')
 # Сори, неправильно обозвал комит, испрпавляю.
+
+#зачет!

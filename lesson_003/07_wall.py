@@ -24,3 +24,5 @@ for row, y in enumerate(range(0, sd.resolution[1], brick_y)):
         sd.rectangle(left_bottom=left_bottom, right_top=right_top, color=sd.COLOR_RED, width=3)
 
 sd.pause()
+
+#зачет!
