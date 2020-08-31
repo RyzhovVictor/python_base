@@ -30,71 +30,71 @@ sd.resolution = (1200, 600)
 # sd.line()
 # Результат решения см lesson_004/results/exercise_01_shapes.jpg
 
-
-def triangle(point, angle=0, length=200):
-    for angle in range(0, 360, 120):
-        if angle < 240:
-            t1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-            t1.draw()
-            point = t1.end_point
-    t2 = sd.line(start_point=point, end_point=sd.get_point(100, 200), width=3)
-
-
-point_square = sd.get_point(350, 350)
-
-
-def square(point_square, angle=0, length=200):
-    for angle in range(0, 360, 90):
-        if angle < 270:
-            s1 = sd.get_vector(start_point=point_square, angle=angle, length=length, width=3)
-            s1.draw()
-            point_square = s1.end_point
-    s2 = sd.line(start_point=point_square, end_point=sd.get_point(400, 200), width=3)
-
-
-point_pentagon = sd.get_point(300, 300)
-
-
-def pentagon(point_pentagon, angle=0, length=100):
-    for angle in range(0, 360, 72):
-        if angle < 288:
-            p1 = sd.get_vector(start_point=point_pentagon, angle=angle, length=length, width=3)
-            p1.draw()
-            point_pentagon = p1.end_point
-    p2 = sd.line(start_point=point_pentagon, end_point=sd.get_point(700, 200), width=3)
-
-
-point_hexagon = sd.get_point(100, 550)
-
-
-def hexagon(point_hexagon, angle=0, length=100):
-    for angle in range(0, 360, 60):
-        if angle < 300:
-            h1 = sd.get_vector(start_point=point_hexagon, angle=angle, length=length, width=3)
-            h1.draw()
-            point_hexagon = h1.end_point
-    h2 = sd.line(start_point=point_hexagon, end_point=sd.get_point(1000, 200), width=3)
-
-
-point_0 = sd.get_point(100, 200)
-length = 200
-
-triangle(point=point_0, angle=0, length=length)
-
-length = 200
-point_1 = sd.get_point(400, 200)
-
-square(point_square=point_1, angle=0, length=length)
-
-length = 100
-point_2 = sd.get_point(700, 200)
-
-pentagon(point_pentagon=point_2, angle=0, length=length)
-
-length = 100
-point_3 = sd.get_point(1000, 200)
-
-hexagon(point_hexagon=point_3, angle=0, length=length)
+#
+# def triangle(point, angle=0, length=200):
+#     for angle in range(0, 360, 120):
+#         if angle < 240:
+#             t1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+#             t1.draw()
+#             point = t1.end_point
+#     t2 = sd.line(start_point=point, end_point=sd.get_point(100, 200), width=3)
+#
+#
+# point_square = sd.get_point(350, 350)
+#
+#
+# def square(point_square, angle=0, length=200):
+#     for angle in range(0, 360, 90):
+#         if angle < 270:
+#             s1 = sd.get_vector(start_point=point_square, angle=angle, length=length, width=3)
+#             s1.draw()
+#             point_square = s1.end_point
+#     s2 = sd.line(start_point=point_square, end_point=sd.get_point(400, 200), width=3)
+#
+#
+# point_pentagon = sd.get_point(300, 300)
+#
+#
+# def pentagon(point_pentagon, angle=0, length=100):
+#     for angle in range(0, 360, 72):
+#         if angle < 288:
+#             p1 = sd.get_vector(start_point=point_pentagon, angle=angle, length=length, width=3)
+#             p1.draw()
+#             point_pentagon = p1.end_point
+#     p2 = sd.line(start_point=point_pentagon, end_point=sd.get_point(700, 200), width=3)
+#
+#
+# point_hexagon = sd.get_point(100, 550)
+#
+#
+# def hexagon(point_hexagon, angle=0, length=100):
+#     for angle in range(0, 360, 60):
+#         if angle < 300:
+#             h1 = sd.get_vector(start_point=point_hexagon, angle=angle, length=length, width=3)
+#             h1.draw()
+#             point_hexagon = h1.end_point
+#     h2 = sd.line(start_point=point_hexagon, end_point=sd.get_point(1000, 200), width=3)
+#
+#
+# point_0 = sd.get_point(100, 200)
+# length = 200
+#
+# triangle(point=point_0, angle=0, length=length)
+#
+# length = 200
+# point_1 = sd.get_point(400, 200)
+#
+# square(point_square=point_1, angle=0, length=length)
+#
+# length = 100
+# point_2 = sd.get_point(700, 200)
+#
+# pentagon(point_pentagon=point_2, angle=0, length=length)
+#
+# length = 100
+# point_3 = sd.get_point(1000, 200)
+#
+# hexagon(point_hexagon=point_3, angle=0, length=length)
 
 
 # Часть 1-бис.
@@ -108,43 +108,20 @@ hexagon(point_hexagon=point_3, angle=0, length=length)
 # Это называется "Выделить общую часть алгоритма в отдельную функцию"
 # Потом надо изменить функции рисования конкретных фигур - вызывать общую функцию вместо "почти" одинакового кода.
 
-def all_in(point, angle, length):
-    # TODO Здесь должен быть один цикл, который рисует разные фигуры в зависимости от параметра
-    # TODO Прошлая версия была ближе к правде, добавлю его ниже
-    # TODO Сделайте те тудушки, которые можете, по другим задайте вопрос, или спросите пояснений
-    for _ in range(3):
-        v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-        v1.draw()
-        angle = angle - 120
-        point = v1.end_point
-    for _ in range(4):
-        s1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-        s1.draw()
-        angle = angle - 90
-        point = s1.end_point
-    for _ in range(5):
-        p1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-        p1.draw()
-        angle = angle + 288
-        point = p1.end_point
-    for _ in range(6):
-        h1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-        h1.draw()
-        angle = angle + 300
-        point = h1.end_point
 
 def all_in(point, angle=0, length=200):
     # TODO 1) angle - параметр сразу же перезаписывается angle из цикла
     # TODO (и то, и то - создает переменную с одним название)
-    for angle in range(0, 360, 120):  # TODO в этой функции надо использовать не конкретный угол
+    degree = 0
+    for degree in degree:  # TODO в этой функции надо использовать не конкретный угол
         # TODO нужна переменная, которая этот угол будет изменять при необходимости
-        if angle < 240:  # TODO это условие тут не нужно
-            # TODO нужно задать правильный диапазон, чтобы лишних итераций просто не было
-            t1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-            # TODO а в векторе нужно использовать и параметр и переменную цикла
-            # TODO angle = start_angle + angle
-            t1.draw()
-            point = t1.end_point
+
+        # TODO нужно задать правильный диапазон, чтобы лишних итераций просто не было
+        t1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+        # TODO а в векторе нужно использовать и параметр и переменную цикла
+        # TODO angle = start_angle + angle
+        t1.draw()
+        point = t1.end_point
     t2 = sd.line(start_point=point, end_point=sd.get_point(100, 200), width=3)
     # TODO тут вы используете конкретную точку - делать так не стоит
     # TODO Линия должна соединять первую точку, которую передали сюда
