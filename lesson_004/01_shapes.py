@@ -112,8 +112,10 @@ sd.resolution = (1200, 600)
 def all_in(point, angle=0, length=200):
     # TODO 1) angle - параметр сразу же перезаписывается angle из цикла
     # TODO (и то, и то - создает переменную с одним название)
-    degree = 0
-    for degree in degree:  # TODO Переменной нужно было задать только шаг (0, 360 - шаг, шаг)
+    start_angle = 0
+    angle = start_angle + 120
+    point = sd.get_point(200, 450)
+    for angle in range(0, 360):  # TODO Переменной нужно было задать только шаг (0, 360 - шаг, шаг)
         # TODO При этом старайтесь не использовать кучу одинаковых названий
 
         # TODO в этой функции надо использовать не конкретный угол
@@ -136,9 +138,9 @@ def all_in(point, angle=0, length=200):
     # TODO 2ую точку (point которая изменялась в цикле) вы задаете правильно
 
 
-point_figure = sd.get_point(200, 450)
+point = sd.get_point(200, 450)
 
-all_in(point_figure, 0, 200)
+all_in(point, 0, 200)
 sd.pause()
 
 # В итоге должно получиться:
