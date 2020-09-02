@@ -109,43 +109,42 @@ sd.resolution = (1200, 600)
 # Потом надо изменить функции рисования конкретных фигур - вызывать общую функцию вместо "почти" одинакового кода.
 
 
-def all_in(point, angle=0, length=200):
-    # TODO Надо разобраться с параметрами.
-    # TODO Это переменные, которые создаются при запуске функции.
-    # TODO При запуске вы указываете all_in(point, 0, 200)
-    # TODO Пайтон находит функцию и запускает код внутри неё
-    # TODO Но перед этим пайтон создает переменные-параметры
-    # TODO point=point (я бы советовал разные названия использовать, а то путаница получается какая-то)
-    # TODO angle=0 (т.к. вы при вызове указываете 0, хотя у вас и значение по умолчанию тоже 0 равно)
-    # TODO length=200 (и тут так же, если бы вы написали all_in(point, 10, 220) то было бы
-    # TODO angle = 10, length = 220)
-    # TODO Вот, и после того как пайтон создал переменные - ими можно пользоваться
-    # TODO т.е. далее в коде вы можете использовать point, angle, length
-    start_angle = 0  # TODO И нет нужды создавать другие переменные внутри функции, вместо этих.
-    # TODO Т.е. у вас есть параметр angle, значит вам не нужно создавать start_angle или angle = start_angle + 120
-    # TODO Вообще про start_angle я говорил - чтобы вы разные названия использовали в цикле и в параметре
-    # TODO У вас даже сейчас параметр и переменная цикла называется одинаково
-    # TODO Пайтон путается, когда все переменные называются одинаково
-    # TODO (вернее он то не путается, но вы не в итоге просто теряете данные, которые были в angle)
-    angle = start_angle + 120
-    point = sd.get_point(200, 450)
-    # TODO 1) Уберите лишние переменные. Добавьте print в начало функции с распечатыванием переменных.
-    # TODO чтобы видеть что создается внутри функции и как этим пользоваться.
-    for angle in range(0, 360):
-        # TODO 2) Цикл должен идти по диапазону углов. Угол должен изменяться от 0 до 360 с заданным шагом
-        # TODO заданный шаг надо определить переменной, можно её назвать хоть X
-        # TODO её надо тоже получать через параметры.
-        t1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-        t1.draw()
-        point = t1.end_point
-    t2 = sd.line(start_point=point, end_point=sd.get_point(100, 200), width=3)
-    # TODO 3) Подумайте, какие точки тут будут использоваться (с теми координатами которые вы указали)
-    # TODO и какие точки надо использовать. Что вообще должна соединять эта линия?
+def all_in(figure_point, length, angle, count):
+    n = count
+    angle = (n - 2) / n * 180
+    new_angle = 0 + angle
+    for _ in range(0, n - 0):
+        v1 = sd.get_vector(figure_point, new_angle, length, 3)
+        v1.draw()
+        new_angle += 180 + angle
+        figure_point = v1.end_point
 
-point = sd.get_point(200, 450)
 
-all_in(point, 0, 200)
-sd.pause()
+def triangle(figure_point):
+    all_in(figure_point, 100, 0, 3)
+
+
+def square(figure_point):
+    all_in(figure_point, 100, 0, 4)
+
+
+def pentagon(figure_point):
+    all_in(figure_point, 100, 0, 5)
+
+
+def hexagon(figure_point):
+    all_in(figure_point, 100, 0, 7)
+
+
+t_point = sd.get_point(100, 200)
+s_point = sd.get_point(350, 200)
+p_point = sd.get_point(650, 200)
+h_point = sd.get_point(950, 200)
+
+triangle(t_point)
+square(s_point)
+pentagon(p_point)
+hexagon(h_point)
 
 # В итоге должно получиться:
 #   - одна общая функция со множеством параметров,
