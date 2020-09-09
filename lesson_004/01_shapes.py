@@ -113,7 +113,9 @@ def all_in(figure_point, length, angle, count):
     n = count
     angle = (n - 2) / n * 180
     new_angle = 0 + angle
-    for _ in range(0, n - 0):
+    start_angle = 20
+    step = 120
+    for cur_angle in range(0, 360 - step, step):
         v1 = sd.get_vector(figure_point, new_angle, length, 3)
         v1.draw()
         new_angle += 180 + angle
@@ -122,16 +124,18 @@ def all_in(figure_point, length, angle, count):
 
 # TODO ПРИМЕР:
 # TODO Первый вариант с расчётом всех 3 углов для треугольника
-start_angle = 20
-step = 120
-print('start 1')
-for cur_angle in range(0, 360, step):  # TODO Тут будет 3 итерации
-    print(cur_angle, start_angle, cur_angle + start_angle)
-print('end 1')
-print('start 2')
-for cur_angle in range(0, 360 - step, step):  # TODO Тут 1 итерация убирается (за счёт уменьшения 360 на один шаг)
-    print(cur_angle, start_angle, cur_angle + start_angle)
-print('end 2')
+# start_angle = 20
+# step = 120
+# # print('start 1')
+# # for cur_angle in range(0, 360, step):  # TODO Тут будет 3 итерации
+# #     print(cur_angle, start_angle, cur_angle + start_angle)
+# # print('end 1')
+# # print('start 2')
+# for cur_angle in range(0, 360 - step, step):  # TODO Тут 1 итерация убирается (за счёт уменьшения 360 на один шаг)
+#     print(cur_angle, start_angle, cur_angle + start_angle)
+# print('end 2')
+
+
 # TODO Таким образом мы можем 1) Рассчитывать углы при помощи цикла
 # TODO 2) Управлять количеством итераций цикла. Это нужно чтобы последнюю сторону нарисовать линией.
 
