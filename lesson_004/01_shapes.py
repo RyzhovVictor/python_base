@@ -120,6 +120,7 @@ def all_in(figure_point, length, angle, count):
         v1.draw()
         new_angle += 180 + angle
         figure_point = v1.end_point
+#         TODO правильно ли я понимаю, здесь должно быть 4 цикла for для каждой фигуры ?
 
 
 # TODO ПРИМЕР:
