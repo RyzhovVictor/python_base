@@ -164,3 +164,4 @@ hexagon(h_point, 0, 100)
 
 
 sd.pause()
+#зачёт!
