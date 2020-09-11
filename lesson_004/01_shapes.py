@@ -109,66 +109,35 @@ sd.resolution = (1200, 600)
 # Потом надо изменить функции рисования конкретных фигур - вызывать общую функцию вместо "почти" одинакового кода.
 
 
-def all_in(figure_point, length, angle, count):
-    # TODO Тут какой-то беспорядок с переменными получается, лишние надо удалить
-    n = count  # TODO например эту, можно вездве использовать count
-    angle = (n - 2) / n * 180  # TODO У этой переменной название совпадает с параметром, надо изменить
-    # TODO Кстати зачем нужен этот angle?
-    new_angle = 0 + angle  # TODO Эту переменную тоже можно удалить
-    start_angle = 20  # TODO И эту
-    step = 120  # TODO А вот эту надо рассчитывать исходя из count (360//count)
-    for cur_angle in range(0, 360 - step, step):
-        v1 = sd.get_vector(figure_point, new_angle, length, 3)
-        # TODO В вектор надо передать сумму двух углов cur_angle+start_angle
-        # TODO под start_angle я имею ввиду угол, который передается параметром (сейчас у вас это angle)
+def all_in(point, angle, length, count):
+    v2 = sd.get_vector(point, angle, length)
+    step = (360 // count) - 1
+    for cur_angle in range(step):
+        v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
         v1.draw()
-        new_angle += 180 + angle  # TODO расчёт угла происходит в цикле, тут можно его удалить
-        figure_point = v1.end_point
-    # TODO Нужно будет здесь нарисовать последнюю сторону фигуры при помощи sd.line
-    # TODO Соединить надо будет 2 точки (начальную точку, из которой начинается рисование -
-    #  её возможно надо будет сохранить дополнитлеьно, до цикла,  и конечную точку,
-    #  которая будет записана в figure_point после цикла)
-
-# правильно ли я понимаю, здесь должно быть 4 цикла for для каждой фигуры ?
-# TODO Нет, если добавить расчёт step в зависимости от count(количества сторон) - то цикл будет рисовать нужную фигуру
-
-# TODO ПРИМЕР:
-# TODO Первый вариант с расчётом всех 3 углов для треугольника
-# start_angle = 20
-# step = 120
-# # print('start 1')
-# # for cur_angle in range(0, 360, step):  # TODO Тут будет 3 итерации
-# #     print(cur_angle, start_angle, cur_angle + start_angle)
-# # print('end 1')
-# # print('start 2')
-# for cur_angle in range(0, 360 - step, step):  # TODO Тут 1 итерация убирается (за счёт уменьшения 360 на один шаг)
-#     print(cur_angle, start_angle, cur_angle + start_angle)
-# print('end 2')
+        point = v1.end_point
+        angle += count
+    sd.line(start_point=point, end_point=v2.start_point, width=3)
 
 
-# TODO Таким образом мы можем 1) Рассчитывать углы при помощи цикла
-# TODO 2) Управлять количеством итераций цикла. Это нужно чтобы последнюю сторону нарисовать линией.
-
-# TODO Попробуйте использовать эти приёмы и реализовать
-# TODO 1) Расчёт угла в цикле
-# TODO 2) Передачу начального угла (который задан параметром) и угла из цикла в вектор
-# TODO 3) Нарисовать последнюю линию при помощи sd.line
-# TODO (или хотя бы для начала не рисовать последнюю сторону вообще)
-
-def triangle(figure_point):  # TODO длину и начальный угол надо бы тоже параметром задать
-    all_in(figure_point, 100, 0, 3)
+def triangle(point, angle, length):
+    step = 120
+    all_in(point, angle, length, step)
 
 
-def square(figure_point):
-    all_in(figure_point, 100, 0, 4)
+def square(point, angle, length):
+    step = 90
+    all_in(point, angle, length, step)
 
 
-def pentagon(figure_point):
-    all_in(figure_point, 100, 0, 5)
+def pentagon(point, angle, length):
+    step = 72
+    all_in(point, angle, length, step)
 
 
-def hexagon(figure_point):
-    all_in(figure_point, 100, 0, 7)
+def hexagon(point, angle, length):
+    step = 60
+    all_in(point, angle, length, step)
 
 
 t_point = sd.get_point(100, 200)
@@ -176,10 +145,10 @@ s_point = sd.get_point(350, 200)
 p_point = sd.get_point(650, 200)
 h_point = sd.get_point(950, 200)
 
-triangle(t_point)
-square(s_point)
-pentagon(p_point)
-hexagon(h_point)
+triangle(t_point, 0, 100)
+square(s_point, 0, 100)
+pentagon(p_point, 0, 100)
+hexagon(h_point, 0, 100)
 
 # В итоге должно получиться:
 #   - одна общая функция со множеством параметров,
