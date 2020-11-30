@@ -17,7 +17,6 @@ sd.resolution = (1200, 600)
 # и константы COLOR_RED, COLOR_ORANGE, COLOR_YELLOW, COLOR_GREEN, COLOR_CYAN, COLOR_BLUE, COLOR_PURPLE
 # Результат решения см lesson_004/results/exercise_02_global_color.jpg
 
-# TODO Не могли бы еще раз проверить это задание, вроде выполненно.
 
 def all_in(point, angle, length, count, color):
     v2 = sd.get_vector(point, angle, length)
@@ -65,13 +64,13 @@ def draw_elements():
 
 
 colors = {
-    '1': sd.COLOR_RED,
-    '2': sd.COLOR_ORANGE,
-    '3': sd.COLOR_YELLOW,
-    '4': sd.COLOR_GREEN,
-    '5': sd.COLOR_CYAN,
-    '6': sd.COLOR_BLUE,
-    '7': sd.COLOR_PURPLE
+    '1': {'color_name': 'red', 'sd_name': sd.COLOR_RED},
+    '2': {'color_name': 'orange', 'sd_name': sd.COLOR_ORANGE},
+    '3': {'color_name': 'yellow', 'sd_name': sd.COLOR_YELLOW},
+    '4': {'color_name': 'green', 'sd_name': sd.COLOR_GREEN},
+    '5': {'color_name': 'cyan', 'sd_name': sd.COLOR_CYAN},
+    '6': {'color_name': 'blue', 'sd_name': sd.COLOR_BLUE},
+    '7': {'color_name': 'purple', 'sd_name': sd.COLOR_PURPLE}
 }
 
 
@@ -89,14 +88,18 @@ colors = {
 def user_input():
     print('Выбирете желаемый цвет для фигур:\n1 : красный \n2 : оранжевый \n3 : желтый \n4 : зеленый \n5 : '
           'сине-зеленый \n6 : синий \n7 : фиолетовый\n')
-    color = input('Введите желаемй цвет: ')
+    while True:
+        color = input('Введите желаемй цвет: ')
     # TODO попробуйте тут реализовать запрос нового ввода в цикле while до тех пор
     # TODO пока число не окажется правильным
-    if color in colors:
-        color = colors['{0}'.format(color)]
-        return color
-    else:
-        print('Вы ввели не корректный номер:')
+        if color in colors:
+            color = colors['{0}'.format(color)]
+            return color
+        else:
+            print('Вы ввели не корректный номер:')
+            continue
+
+# TODO Не понял, как применять ключи для вывода запроса цвета
 
 
 draw_elements()
