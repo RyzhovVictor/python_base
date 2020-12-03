@@ -83,13 +83,14 @@ def user_input():
     while True:
         input_users = input('Введите желаемй цвет: ')
         if input_users in colors:
-            user_input_1 = (colors[input_users]['sd_name'])
-            return user_input_1
+            user_input = colors[input_users]['sd_name']
+            return user_input
         else:
             print('Вы ввели не корректный номер:')
-            continue
+            # continue эту строку можно убрать
 
 
 draw_elements()
 
 sd.pause()
+#зачёт!
