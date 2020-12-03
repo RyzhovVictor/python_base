@@ -57,6 +57,9 @@ h_point = sd.get_point(950, 200)
 
 def draw_elements():
     color = user_input()
+    # TODO тут можно проверить, работает ли правильно функция
+    print('Из функции user_input мы получили значение -', color)
+    # TODO сейчас этот принт выводит - "Из функции user_input мы получили значение - None"
     triangle(t_point, 0, 100, color)
     square(s_point, 0, 100, color)
     pentagon(p_point, 0, 100, color)
@@ -106,7 +109,9 @@ def user_input():
         if input_users in colors:
             user_input = (colors[input_users]['sd_name'], t_point)
             return
-            # TODO здесь нужно выполнить return выбранного цвета
+            # здесь нужно выполнить return выбранного цвета
+            # TODO return - это указатель на то, что нужно вернуть, если он остаётся пустым, как у вас
+        # TODO то он ничего не вернет, надо писать что именно возвращать - return ввод_пользователя например
         else:
             print('Вы ввели не корректный номер:')
 
