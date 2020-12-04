@@ -53,12 +53,21 @@ all_point = sd.get_point(550, 250)
 
 def draw_elements():
     color = user_input()
-    user_input_type_figures()
-    triangle(all_point, 0, 100, color)
-    square(all_point, 0, 100, color)
-    pentagon(all_point, 0, 100, color)
-    hexagon(all_point, 0, 100, color)
-
+    x = user_input_type_figures()  # TODO эта функция возвращает вам сюда функцию из словаря
+    print(x, '+++')  # TODO выглядит это как-то так <function pentagon at 0x0000015F9BB87B80> +++
+    # TODO вам остаётся только вызвать эту функцию
+    x(all_point, 0, 100, color)
+    # triangle(all_point, 0, 100, color)
+    # square(all_point, 0, 100, color)
+    # pentagon(all_point, 0, 100, color)
+    # hexagon(all_point, 0, 100, color)
+    # TODO Уберите лишний код в файле
+    # TODO Поправьте имена (x - плохое название)
+    # TODO И в консоли должны выводится названия фигур, а не функций
+    # 1 - <function triangle at 0x0000026FDA657A60>
+    # 2 - <function square at 0x0000026FDA657AF0>
+    # 3 - <function pentagon at 0x0000026FDA657B80>
+    # 4 - <function hexagon at 0x0000026FDA657C10>
 
 colors = {
     '1': {'color_name': 'red', 'sd_name': sd.COLOR_RED},
