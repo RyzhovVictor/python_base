@@ -48,15 +48,16 @@ def hexagon(point, angle, length, color):
 # p_point = sd.get_point(650, 200)
 # h_point = sd.get_point(950, 200)
 
+all_point = sd.get_point(550, 250)
+
+
 def draw_elements():
     color = user_input()
-    type_figures = user_input_type_figures()
-
-    # TODO а тут, вместо вызова 4 функций, надо будет вызвать одну, ту, которая была выбрана из словаря
-    triangle(type_figures, 0, 100, color)
-    square(type_figures, 0, 100, color)
-    pentagon(type_figures, 0, 100, color)
-    hexagon(type_figures, 0, 100, color)
+    user_input_type_figures()
+    triangle(all_point, 0, 100, color)
+    square(all_point, 0, 100, color)
+    pentagon(all_point, 0, 100, color)
+    hexagon(all_point, 0, 100, color)
 
 
 colors = {
@@ -78,12 +79,12 @@ figures = {
     # TODO функция = словарь[юзер_выбор]['func']
     # TODO функция(параметры)
 
-    # TODO Вот с этим, что выше, не могу разобраться, функции там функции здесь, путаюсь не понимая с чем работать,
-    # TODO структуры в голове не выстроилось
-    '1': {'figure_name': triangle, 'point': sd.get_point(600, 300)},
-    '2': {'figure_name': square, 'point': sd.get_point(600, 300)},
-    '3': {'figure_name': pentagon, 'point': sd.get_point(600, 300)},
-    '4': {'figure_name': hexagon, 'point': sd.get_point(600, 300)},
+    # Вот с этим, что выше, не могу разобраться, функции там функции здесь, путаюсь не понимая с чем работать,
+    # структуры в голове не выстроилось
+    '1': {'figure_name': triangle},
+    '2': {'figure_name': square},
+    '3': {'figure_name': pentagon},
+    '4': {'figure_name': hexagon},
 }
 
 
@@ -109,13 +110,15 @@ def user_input_type_figures():
     while True:
         input_users_1 = input('Введите желаемую фигуру: ')
         if input_users_1 in figures:
-            user_input_2 = figures[input_users_1]['point']
+            user_input_2 = figures[input_users_1]['figure_name']
             # TODO здесь нужно ещё выбрать функцию из словаря, по ключу 'figure_name'
             # TODO и эту функцию тоже надо вернуть
             return user_input_2
         else:
             print('Вы ввели не корректный номер:')
 
+
+# TODO Перебровал разные способы, выдает ошибку либо все равно не отрисовает, в чем может проблема?
 
 draw_elements()
 
