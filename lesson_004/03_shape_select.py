@@ -48,6 +48,14 @@ def hexagon(point, angle, length, color):
 # p_point = sd.get_point(650, 200)
 # h_point = sd.get_point(950, 200)
 
+def draw_elements():
+    color = user_input()
+    type_figures = user_input_type_figures()
+    triangle(type_figures, 0, 100, color)
+    square(type_figures, 0, 100, color)
+    pentagon(type_figures, 0, 100, color)
+    hexagon(type_figures, 0, 100, color)
+
 
 colors = {
     '1': {'color_name': 'red', 'sd_name': sd.COLOR_RED},
@@ -60,27 +68,21 @@ colors = {
 }
 
 figures = {
-    # TODO Хорошая догадка, но лучше поступить следующим образом:
-    # TODO Берем ту же структуру данных, что и в 02.
-    # TODO Чтобы хранить функции в словаре - надо указать их без скобок, только имя
-    # TODO И определение функций (def..) должно быть до словаря с этими функциями
+    # Хорошая догадка, но лучше поступить следующим образом:
+    # Берем ту же структуру данных, что и в 02.
+    # Чтобы хранить функции в словаре - надо указать их без скобок, только имя
+    # И определение функций (def..) должно быть до словаря с этими функциями
     # TODO Запустить её можно будет следующим образом:
     # TODO функция = словарь[юзер_выбор]['func']
     # TODO функция(параметры)
-    '1': {'figure_name': 'triangle', 'point': sd.get_point(600, 300)},
-    '2': {'figure_name': 'square', 'point': sd.get_point(600, 300)},
-    '3': {'figure_name': 'pentagon', 'point': sd.get_point(600, 300)},
-    '4': {'figure_name': 'hexagon', 'point': sd.get_point(600, 300)},
+
+    # TODO Вот с этим, что выше, не могу разобраться, функции там функции здесь, путаюсь не понимая с чем работать,
+    # TODO структуры в голове не выстроилось
+    '1': {'figure_name': triangle, 'point': sd.get_point(600, 300)},
+    '2': {'figure_name': square, 'point': sd.get_point(600, 300)},
+    '3': {'figure_name': pentagon, 'point': sd.get_point(600, 300)},
+    '4': {'figure_name': hexagon, 'point': sd.get_point(600, 300)},
 }
-
-
-def draw_elements():
-    color = user_input()
-    type_figures = user_input_type_figures()
-    triangle(type_figures, 0, 100, color)
-    square(type_figures, 0, 100, color)
-    pentagon(type_figures, 0, 100, color)
-    hexagon(type_figures, 0, 100, color)
 
 
 def user_input():
