@@ -43,31 +43,14 @@ def hexagon(point, angle, length, color):
     all_in(point, angle, length, step, color)
 
 
-# t_point = sd.get_point(100, 200)
-# s_point = sd.get_point(350, 200)
-# p_point = sd.get_point(650, 200)
-# h_point = sd.get_point(950, 200)
-
 all_point = sd.get_point(550, 250)
 
 
 def draw_elements():
     color = user_input()
-    x = user_input_type_figures()  # TODO эта функция возвращает вам сюда функцию из словаря
-    print(x, '+++')  # TODO выглядит это как-то так <function pentagon at 0x0000015F9BB87B80> +++
-    # TODO вам остаётся только вызвать эту функцию
-    x(all_point, 0, 100, color)
-    # triangle(all_point, 0, 100, color)
-    # square(all_point, 0, 100, color)
-    # pentagon(all_point, 0, 100, color)
-    # hexagon(all_point, 0, 100, color)
-    # TODO Уберите лишний код в файле
-    # TODO Поправьте имена (x - плохое название)
-    # TODO И в консоли должны выводится названия фигур, а не функций
-    # 1 - <function triangle at 0x0000026FDA657A60>
-    # 2 - <function square at 0x0000026FDA657AF0>
-    # 3 - <function pentagon at 0x0000026FDA657B80>
-    # 4 - <function hexagon at 0x0000026FDA657C10>
+    type_figure = user_input_type_figures()
+    type_figure(all_point, 0, 100, color)
+
 
 colors = {
     '1': {'color_name': 'red', 'sd_name': sd.COLOR_RED},
@@ -80,20 +63,10 @@ colors = {
 }
 
 figures = {
-    # Хорошая догадка, но лучше поступить следующим образом:
-    # Берем ту же структуру данных, что и в 02.
-    # Чтобы хранить функции в словаре - надо указать их без скобок, только имя
-    # И определение функций (def..) должно быть до словаря с этими функциями
-    # TODO Запустить её можно будет следующим образом:
-    # TODO функция = словарь[юзер_выбор]['func']
-    # TODO функция(параметры)
-
-    # Вот с этим, что выше, не могу разобраться, функции там функции здесь, путаюсь не понимая с чем работать,
-    # структуры в голове не выстроилось
-    '1': {'figure_name': triangle},
-    '2': {'figure_name': square},
-    '3': {'figure_name': pentagon},
-    '4': {'figure_name': hexagon},
+    '1': {'figure_name': triangle, 'print_figure': 'triangle'},
+    '2': {'figure_name': square, 'print_figure': 'square'},
+    '3': {'figure_name': pentagon, 'print_figure': 'pentagon'},
+    '4': {'figure_name': hexagon, 'print_figure': 'hexagon'},
 }
 
 
@@ -114,20 +87,16 @@ def user_input():
 def user_input_type_figures():
     print('*' * 10, 'НАЧАЛО', '*' * 10, )
     for number, type_figures in figures.items():
-        print(number, '-', type_figures['figure_name'])
+        print(number, '-', type_figures['print_figure'])
     print('*' * 10, 'КОНЕЦ', '*' * 10, )
     while True:
         input_users_1 = input('Введите желаемую фигуру: ')
         if input_users_1 in figures:
             user_input_2 = figures[input_users_1]['figure_name']
-            # TODO здесь нужно ещё выбрать функцию из словаря, по ключу 'figure_name'
-            # TODO и эту функцию тоже надо вернуть
             return user_input_2
         else:
             print('Вы ввели не корректный номер:')
 
-
-# TODO Перебровал разные способы, выдает ошибку либо все равно не отрисовает, в чем может проблема?
 
 draw_elements()
 
