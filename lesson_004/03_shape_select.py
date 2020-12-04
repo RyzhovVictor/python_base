@@ -51,6 +51,8 @@ def hexagon(point, angle, length, color):
 def draw_elements():
     color = user_input()
     type_figures = user_input_type_figures()
+
+    # TODO а тут, вместо вызова 4 функций, надо будет вызвать одну, ту, которая была выбрана из словаря
     triangle(type_figures, 0, 100, color)
     square(type_figures, 0, 100, color)
     pentagon(type_figures, 0, 100, color)
@@ -108,6 +110,8 @@ def user_input_type_figures():
         input_users_1 = input('Введите желаемую фигуру: ')
         if input_users_1 in figures:
             user_input_2 = figures[input_users_1]['point']
+            # TODO здесь нужно ещё выбрать функцию из словаря, по ключу 'figure_name'
+            # TODO и эту функцию тоже надо вернуть
             return user_input_2
         else:
             print('Вы ввели не корректный номер:')
