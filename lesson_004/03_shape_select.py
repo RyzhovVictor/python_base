@@ -101,3 +101,4 @@ def user_input_type_figures():
 draw_elements()
 
 sd.pause()
+#зачёт!
