@@ -21,6 +21,9 @@ def draw_branches(point, angle, length):
     next_point = v1.end_point
     next_angle = angle - (sd.random_number(20, 40))
     next_length = length * (sd.random_number(60, 80) / 100)
+    # TODO Для того, чтобы у дерева был ствол - можно тут убрать один из векторов
+    # TODO Чтобы по итогу функция рисовала один вектор и вызывала себя дважды
+    # TODO Получится вот такая последовательность ветвей (1-2-4-8...)
     v2 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
     v2.draw()
     next_point_1 = v2.end_point
