@@ -14,7 +14,7 @@ point_0 = sd.get_point(600, 50)
 
 
 def draw_branches(point, angle, length):
-    if length < 5:
+    if length < 10:
         return
     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
     v1.draw()
@@ -24,12 +24,13 @@ def draw_branches(point, angle, length):
     # TODO Для того, чтобы у дерева был ствол - можно тут убрать один из векторов
     # TODO Чтобы по итогу функция рисовала один вектор и вызывала себя дважды
     # TODO Получится вот такая последовательность ветвей (1-2-4-8...)
-    v2 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v2.draw()
-    next_point_1 = v2.end_point
-    next_angle_1 = angle + (sd.random_number(30, 50))
+    # v2 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
+    # v2.draw()
+    # next_point_1 = v2.end_point
+    # next_angle_1 = angle + (sd.random_number(30, 50))
     draw_branches(point=next_point, angle=next_angle, length=next_length)
-    draw_branches(point=next_point_1, angle=next_angle_1, length=next_length)
+    # draw_branches(point=next_point_1, angle=next_angle_1, length=next_length)
+    return v1
 
 
 root_point = sd.get_point(300, 30)
