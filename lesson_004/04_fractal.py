@@ -27,6 +27,10 @@ def draw_branches(point, angle, length):
     # v2 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
     # v2.draw()
     # next_point_1 = v2.end_point
+    # TODO убрать надо было только рисование второго вектора
+    # TODO новый угол и запуск надо оставить.
+    # TODO т.е. по итогу у вас должно быть в конце два draw_branches из одной точки
+    # TODO но с двумя разными углами
     # next_angle_1 = angle + (sd.random_number(30, 50))
     draw_branches(point=next_point, angle=next_angle, length=next_length)
     # draw_branches(point=next_point_1, angle=next_angle_1, length=next_length)
