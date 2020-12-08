@@ -2,13 +2,15 @@
 
 import simple_draw as sd
 
+sd.resolution = (1200, 600)
 
 # На основе кода из практической части реализовать снегопад:
 # - создать списки данных для отрисовки N снежинок
 # - нарисовать падение этих N снежинок
 # - создать список рандомных длинн лучей снежинок (от 10 до 100) и пусть все снежинки будут разные
 
-N = 20
+# N = 20
+
 
 # Пригодятся функции
 # sd.get_point()
@@ -17,15 +19,35 @@ N = 20
 # sd.random_number()
 # sd.user_want_exit()
 
-# TODO здесь ваш код
-while True:
-    sd.clear_screen()
-    pass
-    pass
-    pass
-    sd.sleep(0.1)
-    if sd.user_want_exit():
-        break
+def snowfall(N):
+    snowflake = []
+    for _ in range(N):
+        snowflake.append(([sd.random_number(-50, 1250), sd.random_number(550, 1600), sd.random_number(23, 47)]))
+
+        while True:
+            for snow in snowflake:
+                x, y, length = snow
+                point = sd.get_point(x, y)
+                sd.start_drawing()
+                sd.snowflake(center=point, length=length, color=sd.background_color, factor_a=0.6)
+                if y > 50:
+                    snow[1] -= 10
+                    x -= sd.random_number(-25, 25)
+                    point_fall = sd.get_point(x, y)
+                    sd.snowflake(point_fall, length=length, color=sd.COLOR_WHITE)
+                else:
+                    last_point = sd.get_point(x, y - 1)
+                    sd.snowflake(last_point, length, color=sd.COLOR_WHITE)
+                    y += sd.random_number(600, 800)
+
+            sd.finish_drawing()
+            sd.sleep(0.01)
+            if sd.user_want_exit():
+                break
+            # sd.clear_screen()
+
+
+snowfall(20)
 
 sd.pause()
 
@@ -43,5 +65,3 @@ sd.pause()
 # - сделать сугоб внизу экрана - если снежинка долетает до низа, оставлять её там,
 #   и добавлять новую снежинку
 # Результат решения см https://youtu.be/XBx0JtxHiLg
-
-
