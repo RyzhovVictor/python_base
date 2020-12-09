@@ -22,12 +22,12 @@ sd.resolution = (1200, 600)
 
 def snowfall(N):
     snowflake = []
-    sd.start_drawing()
     for _ in range(N):
         snowflake.append(([sd.random_number(-50, 1250), sd.random_number(550, 1600), sd.random_number(23, 47)]))
 
     # TODO цикл while должен начинаться после цикла for, а не внутри него
     while True:
+        sd.start_drawing()
         # TODO start - в начале, перед циклом for
         # TODO finish - в конце, перед sd.sleep
         # TODO Сами по себе эти функции нужны, чтобы не рисовать каждое промежуточное действие по-отдельности
@@ -39,7 +39,7 @@ def snowfall(N):
             sd.snowflake(center=point, length=length, color=sd.background_color, factor_a=0.6)
             if y > 50:
                 snow[1] -= 10
-                x -= sd.random_number(-25, 25)  # TODO это изменение тоже надо производить по индексу
+                x -= sd.random_number(-25, 25)  # TODO эта строчка больше не нужна
                 snow[0] -= 10
                 # TODO иначе оно не будет сохранено в списке, т.к изменяться будет только переменная x
                 point_fall = sd.get_point(x, y)
@@ -47,8 +47,8 @@ def snowfall(N):
             else:
                 last_point = sd.get_point(x, y - 1)
                 sd.snowflake(last_point, length, color=sd.COLOR_WHITE)
-                y += sd.random_number(600, 800)  # TODO и тут, snow[1] +=
-                snow[1] += 50
+                y += sd.random_number(600, 800)  # TODO и эта строчка не нужна
+                snow[1] += 50  # TODO а вот тут можно увеличивать на число побольше
 
         sd.finish_drawing()
         sd.sleep(0.05)
