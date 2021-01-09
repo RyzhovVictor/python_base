@@ -8,3 +8,4 @@ from room_2 import folks as r2
 
 print('В комнате room_1 живут:', r1[0], 'и', r1[1])
 print('В комнате room_2 живет:', r2[0])
+#зачёт!
