@@ -20,3 +20,4 @@ residents = ', '.join(central_street_h1_r1 + central_street_h1_r2 + central_stre
                       soviet_street_h2_r1 + soviet_street_h2_r2)
 
 print("На районе живут: ", residents)
+#зачёт!

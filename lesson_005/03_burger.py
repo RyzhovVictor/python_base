@@ -22,9 +22,7 @@ from my_burger import tomato
 from my_burger import mayonnaise
 from my_burger import cheese
 
-
 double_cheeseburger = [bun(), chops(), cucumber(), tomato(), mayonnaise(), cheese()]
 
 print('Рецепт двойного чизбургера: ', double_cheeseburger)
-
-
+#зачёт!
