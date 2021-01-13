@@ -18,7 +18,19 @@
 # пример см. lesson_005/results/04_painting.jpg
 # Приправить своей фантазией по вкусу (коты? коровы? люди? трактор? что придумается)
 
-# TODO здесь ваш код
+import simple_draw as sd
+from painting.house import wall as w
+from painting.smile import smile as sm
+
+sd.resolution = (1800, 800)
+
+w()
+
+# # ho.brick_wall()
+# # ho.roof()
+# # ho.window()
+sm(1400, 300, sd.COLOR_YELLOW)
+
 
 # Усложненное задание (делать по желанию)
 # Анимировать картину.
