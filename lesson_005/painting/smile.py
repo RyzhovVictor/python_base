@@ -1,6 +1,6 @@
 import simple_draw as sd
 
-# sd.resolution = (1200, 600)
+sd.resolution = (1200, 600)
 
 
 # sd.background_color = [0, 255, 255]
@@ -30,7 +30,8 @@ def smile(coordinate_x, coordinate_y, color):
     sd.lines(point_list=point, color=color, closed=False, width=3)
 
 
-color = [0, 0, 0]
-smile(600, 300, color)
+# color = [0, 0, 0]
+# smile(600, 300, color)
+# sd.pause()
 
-sd.pause()
+

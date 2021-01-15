@@ -9,7 +9,7 @@ def draw_branches(point, angle, length):
     if length < 5:
         return
     v1 = sd.get_vector(start_point=point, angle=angle, length=length, width=3)
-    v1.draw()
+    v1.draw(color=sd.COLOR_DARK_GREEN)
     next_point = v1.end_point
     next_angle = angle - (sd.random_number(20, 40))
     next_length = length * (sd.random_number(60, 80) / 100)
@@ -18,7 +18,5 @@ def draw_branches(point, angle, length):
     draw_branches(point=next_point, angle=next_angle_1, length=next_length)
 
 
-root_point = sd.get_point(600, 30)
-draw_branches(point=root_point, angle=90, length=250)
 
-sd.pause()
+

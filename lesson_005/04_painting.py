@@ -19,18 +19,33 @@
 # Приправить своей фантазией по вкусу (коты? коровы? люди? трактор? что придумается)
 
 import simple_draw as sd
-from painting.house import wall as w
-from painting.smile import smile as sm
+from painting.house import wall
+from painting.house import roof
+from painting.house import brick_wall
+from painting.house import window
+from painting.house import window_frame
+from painting.smile import smile
+from painting.snowfall import snowfall
+from painting.tree import draw_branches as db
+from painting.rainbow import rainbow
+from painting.sun import sun
 
 sd.resolution = (1800, 800)
 
-w()
+wall()
+db(sd.get_point(350, 350), angle=90, length=100)
+roof()
+brick_wall()
+window()
+color = [0, 0, 0]
+smile(700, 175, color)
+window_frame()
+rainbow()
+db(sd.get_point(1250, 30), angle=90, length=250)
+sun()
+snowfall(100)
 
-# # ho.brick_wall()
-# # ho.roof()
-# # ho.window()
-sm(1400, 300, sd.COLOR_YELLOW)
-
+sd.pause()
 
 # Усложненное задание (делать по желанию)
 # Анимировать картину.
