@@ -64,13 +64,18 @@ def input_number():
     return nums
 
 
-while True:
-    cprint(('=' * 10, 'Ход игрока', '=' * 10), color='green')
-    number = input_number()
-    bulls, cows = check(number, enemy)
-    cprint(('Быки: ', bulls, 'Коровы: ', cows), color='blue')
-    if bulls == 4:
-        print('Победил игрок')
-        print('Компьютер загадал число: ', enemy)
-        break
+def check_bulls_and_cows():
+    while True:
+        cprint(('=' * 10, 'Ход игрока', '=' * 10), color='green')
+        number = input_number()
+        bulls, cows = check(number, enemy)
+        cprint(('Быки: ', bulls, 'Коровы: ', cows), color='blue')
+        if bulls == 4:
+            print('Победил игрок')
+            print('Компьютер загадал число: ', enemy)
+            break
+        check_bulls_and_cows()
         # TODO нужно добавить возможность начать игру заново
+
+
+check_bulls_and_cows()
