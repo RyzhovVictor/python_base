@@ -12,7 +12,6 @@ def get_all_answer():
 
 def get_one_answer(ans):
     num = random.choice(ans)
-    print(num)
     return num
 
 

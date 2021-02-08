@@ -64,26 +64,25 @@ def input_number():
     return nums
 
 
-def check_bulls_and_cows():
-    while True:
-        cprint(('=' * 10, 'Ход игрока', '=' * 10), color='green')
-        number = input_number()
-        bulls, cows = check(number, enemy)
-        cprint(('Быки: ', bulls, 'Коровы: ', cows), color='blue')
-        if bulls == 4:
-            print('Победил игрок')
-            print('Компьютер загадал число: ', enemy)
+count = 0
+restart = True
+
+while restart:
+    cprint(('=' * 10, 'Ход игрока', '=' * 10), color='green')
+    number = input_number()
+    bulls, cows = check(number, enemy)
+    cprint(('Быки: ', bulls, 'Коровы: ', cows), color='blue')
+    if bulls == 4:
+        print('Победил игрок')
+        print('Компьютер загадал число: ', enemy)
+        next_try = str.lower(input("Если хочешь попытать удачу еще раз напиши 'да'"))
+        if next_try == str.lower('да'):
+            restart = True
+            count += 1
+            continue
+        else:
+            restart = False
+            print('Спасибо что сыграл с нами, у тебя была(о)', count, 'попыток')
             break
-        # TODO 1) в целом рекурсией надо пользоваться если циклом не удалось решить эту проблему.
-        # TODO иначе у вас будут копиться все вызовы функций в памяти
-        # TODO 2) сейчас вы вызываете функцию заново на каждой итерации
-        # TODO т.е. на каждой итерации будет начинаться новая игра с такой же загадкой
-        # TODO Вместо рекурсии попробуйте внутри условия bulls==4 задать вопрос пользователю - хочет он играть дальше
-        # TODO если да - просто обновите счётчик (вам нужен счётчик попыток игрока)
-        # TODO загадайте новое число
-        # TODO и продолжите этот же цикл дальше
-        check_bulls_and_cows()
-        # нужно добавить возможность начать игру заново
 
 
-check_bulls_and_cows()
