@@ -79,8 +79,7 @@ while restart:
         if next_try == str.lower('да'):
             restart = True
             count += 1
-            # TODO попробуйте вот тут вызывать enemy = get_one_answer(answers)
-            # TODO так игра будет продолжаться с новым числом
+            enemy = get_one_answer(answers)
             continue
         else:
             restart = False
