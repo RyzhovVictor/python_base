@@ -85,5 +85,4 @@ while restart:
             restart = False
             print('Спасибо что сыграл с нами, у тебя была(о)', count, 'попыток')
             break
-
-
+#зачёт!
