@@ -47,6 +47,7 @@ def snowfall(n):
 
 snowfall(20)
 
+#  Я вроде бы создал первую функцию создание снежинок N штук, что здесь не так ?
 
 def snowflake_color(color):
     pass
