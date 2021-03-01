@@ -25,14 +25,18 @@ def get_snowfall(n):
         snowflake.append(([sd.random_number(0, 1200), sd.random_number(550, 1600), sd.random_number(23, 47)]))
 
 
-def get_snowfall_color(color):
+def get_snowfall_color(color):  # TODO цвет надо использовать, можно по умолчанию задать цвет белый или фоном
     sd.start_drawing()
     for snow in snowflake:
-        global x, y, length
+        global x, y, length  # TODO объявлять эти переменные глобальными не нужно
+        # TODO другие функции не будут начинаться, пока не закончится эта, поэтому общих переменных у них не будет
         x, y, length = snow
         point = sd.get_point(x, y)
         sd.snowflake(center=point, length=length, color=sd.COLOR_WHITE, factor_a=0.6)
-        sd.finish_drawing()
+        sd.finish_drawing()  # TODO эту операцию надо вызывать после цикла
+        # TODO в цикле мы "копим" функции рисования, после цикла этой командой выводим конечный результат один раз
+
+        # TODO команды ниже просто не нужны в этой функции
         sd.sleep(0.1)
         if sd.user_want_exit():
             break
@@ -40,6 +44,8 @@ def get_snowfall_color(color):
 
 
 def get_snowfall_move():
+    # TODO здесь должен быть свой цикл по списку координат
+    # TODO и ТОЛЬКО изменение координат, без рисования и создания точек
     if y > 50:
         snow[1] -= 10
         point_fall = sd.get_point(x, y)
