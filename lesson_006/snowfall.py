@@ -1,94 +1,47 @@
 import simple_draw as sd
+import random
 
 sd.resolution = (1200, 600)
 
 
-# TODO здесь вы собрали все действия, как это было в 4 модуле
-# TODO но тут мы как раз хотим уйти от проблем, которые были в том модуле
-# TODO и сделать код, который будет готов к масштабированию
-# TODO (так мы учимся правилам разделения кода, которые пригодятся при работе над реальным проектами)
-# TODO В условиях перечислены функции, которые тут должны быть
-# сделать модуль 05_snowfall.py в котором реализовать следующие функции
-#  создать_снежинки(N) - создает N снежинок
-#  нарисовать_снежинки_цветом(color) - отрисовывает все снежинки цветом color
-#  сдвинуть_снежинки() - сдвигает снежинки на один шаг
-#  номера_достигших_низа_экрана() - выдает список номеров снежинок, которые вышли за границу экрана
-#  удалить_снежинки(номера) - удаляет снежинки с номерами из списка
-# снежинки хранить в глобальных переменных модуля snowfall
-# TODO Каждая функция выполняет свою отдельную задачу независимо от других
-# TODO Это позволяет в дальнейшем выбирать часть кода и переписывать её не меняя при этом остальные
-
-def get_snowfall(n):
-    global snowflake
-    snowflake = []
-    for _ in range(n):
-        snowflake.append(([sd.random_number(0, 1200), sd.random_number(550, 1600), sd.random_number(23, 47)]))
+def create_snowflakes(n):
+    global snowflakes
+    snowflakes = []
+    for i in range(0, n):
+        snowflakes.append(([sd.random_number(-50, 1250), sd.random_number(550, 1600), sd.random_number(23, 47)]))
+    return snowflakes
 
 
-def get_snowfall_color(color):  # TODO цвет надо использовать, можно по умолчанию задать цвет белый или фоном
-    sd.start_drawing()
-    for snow in snowflake:
-        global x, y, length  # TODO объявлять эти переменные глобальными не нужно
-        # TODO другие функции не будут начинаться, пока не закончится эта, поэтому общих переменных у них не будет
-        x, y, length = snow
-        point = sd.get_point(x, y)
-        sd.snowflake(center=point, length=length, color=sd.COLOR_WHITE, factor_a=0.6)
-        sd.finish_drawing()  # TODO эту операцию надо вызывать после цикла
-        # TODO в цикле мы "копим" функции рисования, после цикла этой командой выводим конечный результат один раз
-
-        # TODO команды ниже просто не нужны в этой функции
-        sd.sleep(0.1)
-        if sd.user_want_exit():
-            break
-        sd.clear_screen()
+def draw_snowflakes(color):
+    x = snowflakes[0]
+    y = snowflakes[1]
+    point = sd.get_point(x, y)
+    size_ray = snowflakes[2]
+    color = sd.COLOR_WHITE
+    sd.snowflake(center=point, length=size_ray, color=color)
 
 
-def get_snowfall_move():
-    # TODO здесь должен быть свой цикл по списку координат
-    # TODO и ТОЛЬКО изменение координат, без рисования и создания точек
-    if y > 50:
-        snow[1] -= 10
-        point_fall = sd.get_point(x, y)
-        sd.snowflake(point_fall, length=length, color=sd.COLOR_WHITE)
-    else:
-        last_point = sd.get_point(x, y - 1)
-        sd.snowflake(last_point, length, color=sd.COLOR_WHITE)
-        snow[1] += 1250
+def move_snowflakes():
+    snowflakes[1] -= 25
+    delta = random.randint(-5, 5)
+    snowflakes[0] += delta
 
 
-get_snowfall(20)
-get_snowfall_color(sd.COLOR_RED)
-get_snowfall_move()
+flakes = create_snowflakes(20)
 
 
-def get_snowfall_num():
-    pass
+def number_snowflakes():
+    new_snowflakes = []
+    for num in range(0, len(flakes)):
+        if snowflakes[1] <= snowflakes[2]:
+            new_snowflakes.append(num)
+    return snowflakes
 
 
-def delete_snowfall():
-    pass
-
-    # while True:
-    #     sd.start_drawing()
-    #     for snow in snowflake:
-    #         x, y, length = snow
-    #         point = sd.get_point(x, y)
-    #         sd.snowflake(center=point, length=length, color=sd.COLOR_WHITE, factor_a=0.6)
-    #
-    #         if y > 50:
-    #             snow[1] -= 10
-    #             point_fall = sd.get_point(x, y)
-    #             sd.snowflake(point_fall, length=length, color=sd.COLOR_WHITE)
-    #         else:
-    #             last_point = sd.get_point(x, y - 1)
-    #             sd.snowflake(last_point, length, color=sd.COLOR_WHITE)
-    #             snow[1] += 1250
-    #
-    #     sd.finish_drawing()
-    #     sd.sleep(0.1)
-    #     if sd.user_want_exit():
-    #         break
-    #     sd.clear_screen()
+def delete_snowflakes(number):
+    for i in range(len(number) - 1, -1, -1):
+        if i in number:
+            del snowflakes[i]
 
 
 sd.pause()
