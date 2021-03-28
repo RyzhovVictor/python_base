@@ -1,5 +1,4 @@
 import simple_draw as sd
-import random
 
 sd.resolution = (1200, 600)
 
@@ -13,18 +12,24 @@ def create_snowflakes(n):
 
 
 def draw_snowflakes(color):
-    x = snowflakes[0]
-    y = snowflakes[1]
-    point = sd.get_point(x, y)
-    size_ray = snowflakes[2]
-    color = sd.COLOR_WHITE
-    sd.snowflake(center=point, length=size_ray, color=color)
+    for snow in snowflakes:
+        x, y, size_ray = snow
+        point = sd.get_point(x, y)
+        color = sd.COLOR_WHITE
+        sd.snowflake(center=point, length=size_ray, color=color)
 
 
 def move_snowflakes():
-    snowflakes[1] -= 25
-    delta = random.randint(-5, 5)
-    snowflakes[0] += delta
+    for coordinate in snowflakes:
+        if coordinate[1] > 50:
+            coordinate[1] -= 10
+            coordinate[0] -= 10
+            point_fall = sd.get_point(coordinate[0], coordinate[1])
+            sd.snowflake(point_fall, length=coordinate[2], color=sd.COLOR_WHITE)
+        else:
+            last_point = sd.get_point(coordinate[0], coordinate[1] - 1)
+            sd.snowflake(last_point, coordinate[2], color=sd.COLOR_WHITE)
+            coordinate[1] += 1250
 
 
 flakes = create_snowflakes(20)
@@ -32,14 +37,14 @@ flakes = create_snowflakes(20)
 
 def number_snowflakes():
     new_snowflakes = []
-    for num in range(0, len(flakes)):
+    for index, flake in enumerate(snowflakes):
         if snowflakes[1] <= snowflakes[2]:
-            new_snowflakes.append(num)
-    return snowflakes
+            new_snowflakes.append(flake)
+    return new_snowflakes
 
 
 def delete_snowflakes(number):
-    for i in range(len(number) - 1, -1, -1):
+    for i in number[::-1]:
         if i in number:
             del snowflakes[i]
 
