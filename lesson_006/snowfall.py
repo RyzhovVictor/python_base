@@ -11,11 +11,12 @@ def create_snowflakes(n):
     return snowflakes
 
 
-def draw_snowflakes(color):
+def draw_snowflakes(color):  # TODO color надо использовать, раз вы его задали
+    # TODO можно написать color=sd.COLOR_WHITE - тогда стандартное значение будет белым и можно будет не задавать его явно
     for snow in snowflakes:
         x, y, size_ray = snow
         point = sd.get_point(x, y)
-        color = sd.COLOR_WHITE
+        color = sd.COLOR_WHITE  # TODO эта строка перезаписывает color, поэтому сейчас параметр считай не используется
         sd.snowflake(center=point, length=size_ray, color=color)
 
 
@@ -45,8 +46,8 @@ def number_snowflakes():
 
 def delete_snowflakes(number):
     for i in number[::-1]:
-        if i in number:
+        if i in number:  # TODO эта проверка лишняя, вы 'i' берете из number, она точно есть в number
             del snowflakes[i]
 
 
-sd.pause()
+sd.pause()  # TODO паузу надо убрать, она будет мешать коду выполняться в основном модуле
