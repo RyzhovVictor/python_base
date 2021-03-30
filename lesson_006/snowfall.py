@@ -40,7 +40,7 @@ def number_snowflakes():
     new_snowflakes = []
     for index, flake in enumerate(snowflakes):
         if snowflakes[1] <= snowflakes[2]:
-            new_snowflakes.append(flake)
+            new_snowflakes.append(flake)  # TODO добавлять тут нужно индекс, а не flake
     return new_snowflakes
 
 
