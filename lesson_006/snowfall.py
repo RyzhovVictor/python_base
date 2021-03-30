@@ -22,7 +22,7 @@ def move_snowflakes():
     for coordinate in snowflakes:
         if coordinate[1] > 50:
             coordinate[1] -= 20
-            coordinate[0] -= 5
+            coordinate[0] -= 4
             point_fall = sd.get_point(coordinate[0], coordinate[1])
             sd.snowflake(point_fall, length=coordinate[2], color=sd.COLOR_WHITE)
         else:

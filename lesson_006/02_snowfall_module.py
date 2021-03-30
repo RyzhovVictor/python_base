@@ -21,7 +21,7 @@ sd.resolution = (1200, 600)
 # В текущем модуле реализовать главный цикл падения снежинок,
 # обращаясь ТОЛЬКО к функциям модуля snowfall
 
-create_snowflakes(50)
+create_snowflakes(45)
 color = sd.background_color
 color_1 = sd.COLOR_YELLOW
 while True:
@@ -38,7 +38,7 @@ while True:
     # fallen_flakes = number_snowflakes()
     if number_snowflakes():
         delete_snowflakes(number=number_snowflakes())
-        create_snowflakes(50)
+        create_snowflakes(45)
     else:
         sd.finish_drawing()
         sd.sleep(0.05)
