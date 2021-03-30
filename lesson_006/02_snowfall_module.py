@@ -8,6 +8,7 @@ from snowfall import number_snowflakes
 from snowfall import delete_snowflakes
 from snowfall import flakes
 
+
 sd.resolution = (1200, 600)
 
 # На основе кода из lesson_004/05_snowfall.py
@@ -34,10 +35,10 @@ while True:
     for flake in flakes:
         draw_snowflakes(sd.background_color)
         move_snowflakes()
-        draw_snowflakes(sd.COLOR_WHITE)
-        fallen_flakes = number_snowflakes()
+        draw_snowflakes(sd.COLOR_YELLOW)
         draw_snowflakes(sd.background_color)
-        delete_snowflakes(fallen_flakes)
+        fallen_flakes = number_snowflakes()
+        delete_snowflakes(number=fallen_flakes)
     sd.finish_drawing()
     sd.sleep(0.1)
     if sd.user_want_exit():
