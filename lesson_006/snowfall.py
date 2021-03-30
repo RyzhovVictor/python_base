@@ -31,7 +31,8 @@ def move_snowflakes():
             coordinate[1] += 1250
 
 
-flakes = create_snowflakes(20)
+flakes = create_snowflakes(20)  # TODO создавать снежинки тут не нужно
+# TODO достаточно инициализировать пустой список в НАЧАЛЕ файла
 
 
 def number_snowflakes():

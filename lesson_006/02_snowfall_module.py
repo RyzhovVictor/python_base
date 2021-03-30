@@ -32,7 +32,9 @@ while True:
     #       удалить_снежинки(номера)
     #       создать_снежинки(count)
     sd.start_drawing()
-    for flake in flakes:
+    for flake in flakes:  # TODO здесь не нужен цикл по снежинкам
+        # TODO в draw_snowflakes и других функциях уже зашиты свои циклы
+        # TODO тут нужно просто вызывать эти функции в правильном порядке
         draw_snowflakes(sd.background_color)
         move_snowflakes()
         draw_snowflakes(sd.COLOR_YELLOW)
@@ -41,7 +43,7 @@ while True:
         delete_snowflakes(number=fallen_flakes)
     sd.finish_drawing()
     sd.sleep(0.1)
-    if sd.user_want_exit():
+    if sd.user_want_exit():  # TODO дублирование кода надо убрать
         break
     sd.sleep(0.1)
     if sd.user_want_exit():
