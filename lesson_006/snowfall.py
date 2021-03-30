@@ -31,16 +31,12 @@ def move_snowflakes():
             coordinate[1] += 1250
 
 
-flakes = create_snowflakes(20)  # TODO создавать снежинки тут не нужно
-# TODO достаточно инициализировать пустой список в НАЧАЛЕ файла
-
-
 def number_snowflakes():
     global new_snowflakes
     new_snowflakes = []
     for index, flake in enumerate(snowflakes):
         if snowflakes[1] <= snowflakes[2]:
-            new_snowflakes.append(flake)  # TODO добавлять тут нужно индекс, а не flake
+            new_snowflakes.append(index)
     return new_snowflakes
 
 
