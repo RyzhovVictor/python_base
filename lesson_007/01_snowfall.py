@@ -29,6 +29,9 @@ class Snowflake:
 
     def can_fall(self):
         if self.y <= self.size_ray:
+            # TODO В данном случае if/else блок лишний, можно оставить просто return с условием
+            # TODO Т.к. само по себе условие равно либо True, либо False
+            # TODO пример return a > b
             return True
 
 
@@ -47,22 +50,26 @@ flakes = get_flakes()
 
 def get_fallen_flakes(snowflakes):
     # num_fallen = []
-    for num in range(0, len(flakes)):
+    # TODO создавать список для индексов - хорошая идея
+    for num in range(0, len(flakes)):  # TODO от range+len надо уходить https://habr.com/ru/company/ruvds/blog/485648/
         if flake.can_fall():
             snowflakes.append(num)
-
+    # TODO в итоге вы должны пустой список заполнить индексами и вернуть список индексов упавших снежинок
+    # TODO тут можно принт добавить чтобы проверить, что всё возвращается верно
     return snowflakes
 
 
 def append_flakes(fallen_flakes):
+    # TODO range + len стоит убрать
     for i in range(0, len(fallen_flakes)):
-        if flake.can_fall():
+        if flake.can_fall():  # TODO тут эта проверка не нужна. + какая именно снежинка проверяется в ней?
             flakes.append(Snowflake())
 
 
 def remove_flakes(fallen_flakes, snowflakes):
+    # TODO range + len замените на проход по развернотому списку (индекс[::-1])
     for i in range(len(fallen_flakes) - 1, -1, -1):
-        if i in fallen_flakes:
+        if i in fallen_flakes:  # TODO проверка не нужна
             del snowflakes[i]
 
 
@@ -94,10 +101,10 @@ while True:
     sd.start_drawing()
     for flake in flakes:
         flake.draw(sd.background_color)
-        if not flake.can_fall():
+        if not flake.can_fall():  # TODO эта проверка не нужна (либо ей можно встроить внутрь move
             flake.move()
         flake.draw(sd.COLOR_WHITE)
-    fallen_flakes = get_fallen_flakes(snowflakes=[])
+    fallen_flakes = get_fallen_flakes(snowflakes=[])  # TODO пустой список стоит создавать внутри самой функцции
     if fallen_flakes:
         append_flakes(fallen_flakes)
         flake.draw(sd.background_color)
