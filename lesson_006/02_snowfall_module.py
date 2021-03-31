@@ -35,15 +35,15 @@ while True:
     draw_snowflakes(color)
     move_snowflakes()
     draw_snowflakes(color_1)
-    # fallen_flakes = number_snowflakes()
-    if number_snowflakes():
-        delete_snowflakes(number=number_snowflakes())
+    fallen_flakes = number_snowflakes()
+    if fallen_flakes:
+        delete_snowflakes(number=fallen_flakes)
         create_snowflakes(45)
-    else:
-        sd.finish_drawing()
-        sd.sleep(0.05)
-        if sd.user_want_exit():
-            break
+    sd.finish_drawing()
+    sd.sleep(0.05)
+    if sd.user_want_exit():
+        break
 
 
 sd.pause()
+#зачёт!
