@@ -8,13 +8,13 @@ sd.resolution = (1200, 600)
 #  - создание снежинки с нужными параметрами
 #  - отработку изменений координат
 #  - отрисовку
-n = 20
+n = 50
 
 
 class Snowflake:
     def __init__(self):
-        self.x = random.choice([x_value for x_value in range(50, 1150, 50)])
-        self.y = random.choice([y_value for y_value in range(800, 1900, 55)])
+        self.x = random.choice([x_value for x_value in range(-25, 1225)])
+        self.y = random.choice([y_value for y_value in range(700, 1400)])
         self.size_ray = random.choice([size_value for size_value in range(10, 50, 2)])
         self.color = sd.COLOR_WHITE
 
@@ -28,17 +28,14 @@ class Snowflake:
         self.x += delta
 
     def can_fall(self):
-        if self.y <= self.size_ray:
-            # TODO В данном случае if/else блок лишний, можно оставить просто return с условием
-            # TODO Т.к. само по себе условие равно либо True, либо False
-            # TODO пример return a > b
-            return True
+        return self.y <= self.size_ray
 
 
 flake = Snowflake()
 
 
 def get_flakes():
+    global snowflakes
     snowflakes = []
     for i in range(0, n):
         snowflakes.append(Snowflake())
@@ -49,28 +46,24 @@ flakes = get_flakes()
 
 
 def get_fallen_flakes(snowflakes):
-    # num_fallen = []
-    # TODO создавать список для индексов - хорошая идея
-    for num in range(0, len(flakes)):  # TODO от range+len надо уходить https://habr.com/ru/company/ruvds/blog/485648/
+    global num_fallen
+    num_fallen = []
+    for num in enumerate(flakes):
         if flake.can_fall():
             snowflakes.append(num)
-    # TODO в итоге вы должны пустой список заполнить индексами и вернуть список индексов упавших снежинок
-    # TODO тут можно принт добавить чтобы проверить, что всё возвращается верно
-    return snowflakes
+    print(num_fallen)
+    return num_fallen
 
 
-def append_flakes(fallen_flakes):
-    # TODO range + len стоит убрать
-    for i in range(0, len(fallen_flakes)):
-        if flake.can_fall():  # TODO тут эта проверка не нужна. + какая именно снежинка проверяется в ней?
-            flakes.append(Snowflake())
+def append_flakes():
+    for index in enumerate(snowflakes):
+        flakes.append(index)
+        return flakes
 
 
-def remove_flakes(fallen_flakes, snowflakes):
-    # TODO range + len замените на проход по развернотому списку (индекс[::-1])
-    for i in range(len(fallen_flakes) - 1, -1, -1):
-        if i in fallen_flakes:  # TODO проверка не нужна
-            del snowflakes[i]
+def remove_flakes(number):
+    for i in number[::-1]:
+        del flakes[i]
 
 
 # while True:
@@ -101,14 +94,13 @@ while True:
     sd.start_drawing()
     for flake in flakes:
         flake.draw(sd.background_color)
-        if not flake.can_fall():  # TODO эта проверка не нужна (либо ей можно встроить внутрь move
-            flake.move()
+        flake.move()
         flake.draw(sd.COLOR_WHITE)
-    fallen_flakes = get_fallen_flakes(snowflakes=[])  # TODO пустой список стоит создавать внутри самой функцции
+    fallen_flakes = get_fallen_flakes(get_flakes())
     if fallen_flakes:
-        append_flakes(fallen_flakes)
+        append_flakes()
         flake.draw(sd.background_color)
-        remove_flakes(fallen_flakes, snowflakes=flakes)
+        remove_flakes(fallen_flakes)
 
     sd.finish_drawing()
     sd.sleep(0.1)
