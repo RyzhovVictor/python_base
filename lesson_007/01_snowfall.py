@@ -35,9 +35,14 @@ flake = Snowflake()
 
 
 def get_flakes():
-    global snowflakes
+    global snowflakes  # TODO от глобальных операторов надо отказываться
+    # TODO ими стоит пользоваться только в редких случаях
+    # TODO в данном задании можно обойтись без них
     snowflakes = []
-    for i in range(0, n):
+    for i in range(0, n):  # TODO n создается где-то снаружи - это плохая практика
+        # TODO т.к. функция становится зависима от этой переменной и её где-то надо искать
+        # TODO чтобы изменить количество снежинок
+        # TODO передавайте это число параметром
         snowflakes.append(Snowflake())
     return snowflakes
 
@@ -49,16 +54,22 @@ def get_fallen_flakes(snowflakes):
     global num_fallen
     num_fallen = []
     for num in enumerate(flakes):
-        if flake.can_fall():
-            snowflakes.append(num)
+        if flake.can_fall():  # TODO К какой flake применяется can_fall?
+            snowflakes.append(num)  # TODO num - это что? как проверить?
     print(num_fallen)
     return num_fallen
 
 
 def append_flakes():
     for index in enumerate(snowflakes):
+        print(index)
         flakes.append(index)
-        return flakes
+        return flakes  # TODO return - это конец функции
+    # TODO выполнив return пайтон завершает функцию на этом месте и дальше продолжает выполнять уже другой код
+    # TODO в этом случае ваш цикл добавит один индекс в flakes и завершит функцию вместе с циклом
+    # TODO вы такую логику задумывали для этого кода?
+    # TODO + непонятно, что и зачем вы добавляете в список flakes?
+    # TODO добавил принт, чтобы это можно было проверить
 
 
 def remove_flakes(number):
@@ -97,7 +108,14 @@ while True:
         flake.move()
         flake.draw(sd.COLOR_WHITE)
     fallen_flakes = get_fallen_flakes(get_flakes())
+    # TODO get_flakes() - что сделает при вызове?
+    # TODO как проверить - проверяете ли вы начальный список снежинок или нет?
+    # TODO попробуйте
+    # TODO 1) уменьшить количество снежинок, чтобы было попроще проверку делать
+    # TODO 2) в начало get_fallen_flakes добавьте print(snowflakes)
+    # TODO вы увидите, что передается совершенно новый список снежинок, а старый список не проверяется
     if fallen_flakes:
+        print('+')  # TODO добавил ещё один принт, чтобыы проверить - срабатывает ли это условие
         append_flakes()
         flake.draw(sd.background_color)
         remove_flakes(fallen_flakes)
