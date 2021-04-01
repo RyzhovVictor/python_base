@@ -4,11 +4,11 @@ import random
 
 sd.resolution = (1200, 600)
 
+
 # Шаг 1: Реализовать падение снежинки через класс. Внести в методы:
 #  - создание снежинки с нужными параметрами
 #  - отработку изменений координат
 #  - отрисовку
-n = 50
 
 
 class Snowflake:
@@ -34,15 +34,16 @@ class Snowflake:
 flake = Snowflake()
 
 
-def get_flakes():
-    global snowflakes  # TODO от глобальных операторов надо отказываться
-    # TODO ими стоит пользоваться только в редких случаях
-    # TODO в данном задании можно обойтись без них
+def get_flakes(n=3):
+    # от глобальных операторов надо отказываться
+    # ими стоит пользоваться только в редких случаях
+    # в данном задании можно обойтись без них
     snowflakes = []
-    for i in range(0, n):  # TODO n создается где-то снаружи - это плохая практика
-        # TODO т.к. функция становится зависима от этой переменной и её где-то надо искать
-        # TODO чтобы изменить количество снежинок
-        # TODO передавайте это число параметром
+    for i in range(0, n):
+        # n создается где-то снаружи - это плохая практика
+        # т.к. функция становится зависима от этой переменной и её где-то надо искать
+        # чтобы изменить количество снежинок
+        # передавайте это число параметром
         snowflakes.append(Snowflake())
     return snowflakes
 
@@ -54,6 +55,7 @@ def get_fallen_flakes(snowflakes):
     global num_fallen
     num_fallen = []
     for num in enumerate(flakes):
+        print(num)
         if flake.can_fall():  # TODO К какой flake применяется can_fall?
             snowflakes.append(num)  # TODO num - это что? как проверить?
     print(num_fallen)
@@ -61,7 +63,7 @@ def get_fallen_flakes(snowflakes):
 
 
 def append_flakes():
-    for index in enumerate(snowflakes):
+    for index in enumerate(flakes):
         print(index)
         flakes.append(index)
         return flakes  # TODO return - это конец функции
