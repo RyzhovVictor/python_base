@@ -39,7 +39,7 @@ def get_flakes(n=3):
     # ими стоит пользоваться только в редких случаях
     # в данном задании можно обойтись без них
     snowflakes = []
-    for i in range(0, n):
+    for i in range(n):
         # n создается где-то снаружи - это плохая практика
         # т.к. функция становится зависима от этой переменной и её где-то надо искать
         # чтобы изменить количество снежинок
@@ -51,27 +51,27 @@ def get_flakes(n=3):
 flakes = get_flakes()
 
 
-def get_fallen_flakes(snowflakes):
-    global num_fallen
+def get_fallen_flakes():
     num_fallen = []
-    for num in enumerate(flakes):
-        print(num)
-        if flake.can_fall():  # TODO К какой flake применяется can_fall?
-            snowflakes.append(num)  # TODO num - это что? как проверить?
-    print(num_fallen)
-    return num_fallen
-
-
-def append_flakes():
-    for index in enumerate(flakes):
+    for index, flake in enumerate(flakes):
         print(index)
-        flakes.append(index)
-        return flakes  # TODO return - это конец функции
-    # TODO выполнив return пайтон завершает функцию на этом месте и дальше продолжает выполнять уже другой код
-    # TODO в этом случае ваш цикл добавит один индекс в flakes и завершит функцию вместе с циклом
-    # TODO вы такую логику задумывали для этого кода?
-    # TODO + непонятно, что и зачем вы добавляете в список flakes?
-    # TODO добавил принт, чтобы это можно было проверить
+        if flake.can_fall():
+            # К какой flake применяется can_fall?
+            # num - это что? как проверить?
+            num_fallen.append(index)
+    print(num_fallen)
+
+
+def append_flakes(flakes, n):
+    for i in range(n):
+        print(i)
+        flakes.append(Snowflake())
+    # return - это конец функции
+    # выполнив return пайтон завершает функцию на этом месте и дальше продолжает выполнять уже другой код
+    # в этом случае ваш цикл добавит один индекс в flakes и завершит функцию вместе с циклом
+    # вы такую логику задумывали для этого кода?
+    # + непонятно, что и зачем вы добавляете в список flakes?
+    # добавил принт, чтобы это можно было проверить
 
 
 def remove_flakes(number):
@@ -109,16 +109,17 @@ while True:
         flake.draw(sd.background_color)
         flake.move()
         flake.draw(sd.COLOR_WHITE)
-    fallen_flakes = get_fallen_flakes(get_flakes())
-    # TODO get_flakes() - что сделает при вызове?
-    # TODO как проверить - проверяете ли вы начальный список снежинок или нет?
-    # TODO попробуйте
-    # TODO 1) уменьшить количество снежинок, чтобы было попроще проверку делать
-    # TODO 2) в начало get_fallen_flakes добавьте print(snowflakes)
-    # TODO вы увидите, что передается совершенно новый список снежинок, а старый список не проверяется
+    fallen_flakes = get_fallen_flakes()
+    # get_flakes() - что сделает при вызове?
+    # как проверить - проверяете ли вы начальный список снежинок или нет?
+    # попробуйте
+    # 1) уменьшить количество снежинок, чтобы было попроще проверку делать
+    # 2) в начало get_fallen_flakes добавьте print(snowflakes)
+    # вы увидите, что передается совершенно новый список снежинок, а старый список не проверяется
     if fallen_flakes:
-        print('+')  # TODO добавил ещё один принт, чтобыы проверить - срабатывает ли это условие
-        append_flakes()
+        print('+')
+    # добавил ещё один принт, чтобыы проверить - срабатывает ли это условие
+        append_flakes(flakes, 5)
         flake.draw(sd.background_color)
         remove_flakes(fallen_flakes)
 
