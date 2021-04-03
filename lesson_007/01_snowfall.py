@@ -60,8 +60,9 @@ def get_fallen_flakes():
             # num - это что? как проверить?
             num_fallen.append(index)
     print(num_fallen)
-    # TODO здесь должен быть return num_fallen
-    # TODO нам ведь нужно все эти собранные индексы передать и использовать
+    return num_fallen
+    # здесь должен быть return num_fallen
+    # нам ведь нужно все эти собранные индексы передать и использовать
 
 
 def append_flakes(flakes, n):
@@ -111,7 +112,8 @@ while True:
         flake.draw(sd.background_color)
         flake.move()
         flake.draw(sd.COLOR_WHITE)
-    fallen_flakes = get_fallen_flakes()  # TODO вот тут даже пайчарм подсвечивает (Function 'get_fallen_flakes' doesn't return anything)
+    fallen_flakes = get_fallen_flakes()
+    # вот тут даже пайчарм подсвечивает (Function 'get_fallen_flakes' doesn't return anything)
     # get_flakes() - что сделает при вызове?
     # как проверить - проверяете ли вы начальный список снежинок или нет?
     # попробуйте
@@ -121,7 +123,7 @@ while True:
     if fallen_flakes:
         print('+')
     # добавил ещё один принт, чтобыы проверить - срабатывает ли это условие
-        append_flakes(flakes, 5)
+        append_flakes(flakes, 3)
         flake.draw(sd.background_color)
         remove_flakes(fallen_flakes)
 
