@@ -44,6 +44,9 @@ from random import randint
 
 
 class House:
+    total_money = 0
+    total_food = 0
+    total_buy_coat = 0
 
     def __init__(self):
         self.count_money = 100
@@ -102,11 +105,14 @@ class Husband(Man):
             self.gaming()
         elif dice == 3:
             self.work()
+        elif dice == 4:
+            self.work()
 
     def eat(self):
         if self.house.count_food >= 25:
             cprint('{} поел'.format(self.name), color='yellow')
             self.degree_satiety += 25
+            self.house.total_food += 25
             self.house.count_food -= 25
         else:
             cprint('{} нет еды'.format(self.name), color='red')
@@ -114,6 +120,7 @@ class Husband(Man):
     def work(self):
         cprint('{} сходил на работу'.format(self.name), color='blue')
         self.house.count_money += 150
+        self.house.total_money += 150
         self.degree_satiety -= 10
 
     def gaming(self):
@@ -144,7 +151,7 @@ class Wife(Man):
             self.shopping()
         elif self.degree_satiety <= 50:
             self.eat()
-        elif self.degree_happy < 10:
+        elif self.degree_happy < 50:
             self.buy_fur_coat()
         elif self.degree_satiety <= 20:
             self.eat()
@@ -163,6 +170,7 @@ class Wife(Man):
         if self.house.count_food >= 25:
             cprint('{} поела'.format(self.name), color='yellow')
             self.degree_satiety += 25
+            self.house.total_food += 25
             self.house.count_food -= 25
         else:
             cprint('{} нет еды'.format(self.name), color='red')
@@ -180,6 +188,7 @@ class Wife(Man):
         if self.house.count_money >= 400:
             cprint('{} сходила в магазин за шубой'.format(self.name), color='magenta')
             self.house.count_money -= 350
+            self.house.total_buy_coat += 350
             self.degree_satiety -= 10
             self.degree_happy += 60
         else:
@@ -207,6 +216,12 @@ for day in range(366):
     cprint(masha, color='cyan')
     cprint(home, color='cyan')
     home.count_mud += 5
+
+count_coat = int(home.total_buy_coat / 350)
+
+cprint('Всего заработанных денег: {}'.format(home.total_money), color='yellow')
+cprint('Всего съедено еды: {}'.format(home.total_food), color='yellow')
+cprint('Всего купленно шуб: {}'.format(count_coat), color='yellow')
 
 # TODO после реализации первой части - отдать на проверку учителю
 
