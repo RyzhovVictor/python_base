@@ -97,6 +97,7 @@ class Man:
             return False
         return True
 
+
 # TODO Помимо целых действий вроде eat
 # TODO Можно выделять схожие части методов и выносить их в родительский класс
 # TODO Например можно взять общие проверки и действия из act
@@ -122,17 +123,17 @@ class Husband(Man):
     def act(self):
         # TODO Здесь надо проверять if super().act()
         # TODO а уже потом делать какие-то действия
-        if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
-            cprint('{} умер...'.format(self.name), color='red')
-            return
+        if super().act():
+            if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
+                cprint('{} умер...'.format(self.name), color='red')
+                return
         super().depression()
         super().food()
         dice = randint(1, 4)
         if self.house.count_money <= 100:
             self.work()
-        elif super().act():
-            if isinstance(self.degree_satiety, Man):
-                self.eat()
+        elif self.degree_satiety <= 50:
+            self.eat()
         elif self.degree_happy < 30:
             self.gaming()
         elif dice == 1:
@@ -176,18 +177,18 @@ class Wife(Man):
                                                                       self.degree_happy)
 
     def act(self):
-        if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
-            cprint('{} умерла...'.format(self.name), color='red')
-            return
+        if super().act():
+            if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
+                cprint('{} умерла...'.format(self.name), color='red')
+                return
         super().depression()
         super().food()
         dice = randint(1, 4)
 
         if self.house.count_food <= 50:
             self.shopping()
-        elif super().act():
-            if isinstance(self.degree_satiety, Man):
-                self.eat()
+        elif self.degree_satiety <= 50:
+            self.eat()
         elif self.degree_happy < 50:
             self.buy_fur_coat()
         elif self.degree_satiety <= 20:
