@@ -60,10 +60,11 @@ class House:
 
 
 class Man:
-    def __init__(self):
+    def __init__(self, name):
         self.degree_satiety = 30
         self.degree_happy = 100
         self.house = home
+        self.name = name
 
     def __str__(self):
         return 'Еды остлось: {}, уровень счастья: {}'.format(self.degree_satiety, self.degree_happy)
@@ -74,6 +75,22 @@ class Man:
 
     def food(self):
         self.degree_satiety -= 10
+
+    def eat(self):
+        if self.house.count_food >= 25:
+            cprint('{} поел'.format(self.name), color='yellow')
+            self.degree_satiety += 25
+            self.house.total_food += 25
+            self.house.count_food -= 25
+        else:
+            cprint('{} нет еды'.format(self.name), color='red')
+
+    def act(self):
+        if self.degree_satiety <= 50:
+            self.eat()
+            return False
+        return True
+
 # TODO Помимо целых действий вроде eat
 # TODO Можно выделять схожие части методов и выносить их в родительский класс
 # TODO Например можно взять общие проверки и действия из act
@@ -89,7 +106,7 @@ class Man:
 class Husband(Man):
 
     def __init__(self, name):
-        super().__init__()
+        super().__init__(name=name)
         self.name = name
 
     def __str__(self):
@@ -105,8 +122,9 @@ class Husband(Man):
         dice = randint(1, 4)
         if self.house.count_money <= 100:
             self.work()
-        elif self.degree_satiety <= 50:
-            self.eat()
+        elif super().act():
+            if isinstance(self.degree_satiety, Man):
+                self.eat()
         elif self.degree_happy < 30:
             self.gaming()
         elif dice == 1:
@@ -142,7 +160,7 @@ class Husband(Man):
 class Wife(Man):
 
     def __init__(self, name):
-        super().__init__()
+        super().__init__(name=name)
         self.name = name
 
     def __str__(self):
@@ -159,8 +177,9 @@ class Wife(Man):
 
         if self.house.count_food <= 50:
             self.shopping()
-        elif self.degree_satiety <= 50:
-            self.eat()
+        elif super().act():
+            if isinstance(self.degree_satiety, Man):
+                self.eat()
         elif self.degree_happy < 50:
             self.buy_fur_coat()
         elif self.degree_satiety <= 20:
