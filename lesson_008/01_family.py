@@ -86,6 +86,12 @@ class Man:
             cprint('{} нет еды'.format(self.name), color='red')
 
     def act(self):
+        # TODO сюда ещё можно эту часть кода вынести
+        #         if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
+        #             cprint('{} умерла...'.format(self.name), color='red')
+        #             return
+        #         super().depression()
+        #         super().food()
         if self.degree_satiety <= 50:
             self.eat()
             return False
@@ -114,6 +120,8 @@ class Husband(Man):
                                                                       self.degree_happy)
 
     def act(self):
+        # TODO Здесь надо проверять if super().act()
+        # TODO а уже потом делать какие-то действия
         if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
             cprint('{} умер...'.format(self.name), color='red')
             return
