@@ -88,9 +88,10 @@ class Man:
     def act(self):
         if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
             cprint('{} умерла...'.format(self.name), color='red')
-            return
+            return  # TODO если человек умер, то лучше тоже вернуть False
         self.depression()
-        self.eat()
+        self.eat()  # TODO два раза вызывать eat не нужно
+        # TODO тут стоит self.food() вызывать, а self.eat() убрать
         if self.degree_satiety <= 50:
             self.eat()
             return False
@@ -120,24 +121,21 @@ class Husband(Man):
                                                                       self.degree_happy)
 
     def act(self):
-        # TODO Здесь надо проверять if super().act()
-        # TODO а уже потом делать какие-то действия
+
         if super().act():
+            # TODO из этой проверки всё убираем, Eat вызывать не нужно
+            # TODO Эта проверка нужно только для того, чтобы завершить работу акта, если пришёл False
+            # TODO из родительского акта
+            # TODO т.е. мы пишем if not super().act() --> return
             if isinstance(self.degree_satiety, Man):
                 self.eat()
-            # TODO Здесь, если в родительском акте было выполнено действие - нужно завершать метод
-            # TODO Если в родительском методе действий не было - то двигаемся дальше и совершаем действие
 
-            # TODO проверку на смерть тоже надо убирать в общий акт
-            # if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
-            #     cprint('{} умер...'.format(self.name), color='red')
-            #     return
-        super().depression()
+        super().depression()  # TODO здесь убираем то, что уже есть в родительском акте (depression и food)
         super().food()
         dice = randint(1, 4)
         if self.house.count_money <= 100:
             self.work()
-        elif self.degree_satiety <= 50:
+        elif self.degree_satiety <= 50:  # TODO и вот эту проверку с eat() тоже убираем
             self.eat()
         elif self.degree_happy < 30:
             self.gaming()
