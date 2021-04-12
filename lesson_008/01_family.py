@@ -67,7 +67,7 @@ class Man:
         self.name = name
 
     def __str__(self):
-        return 'Еды остлось: {}, уровень счастья: {}'.format(self.degree_satiety, self.degree_happy)
+        return 'Еды осталось: {}, уровень счастья: {}'.format(self.degree_satiety, self.degree_happy)
 
     def depression(self):
         if self.house.count_mud >= 90:
@@ -87,27 +87,14 @@ class Man:
 
     def act(self):
         if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
-            cprint('{} умерла...'.format(self.name), color='red')
-            return False  # TODO если человек умер, то лучше тоже вернуть False
+            cprint('{} умер...'.format(self.name), color='red')
+            return False
         self.depression()
-        self.food() # TODO два раза вызывать eat не нужно
-        # TODO тут стоит self.food() вызывать, а self.eat() убрать
-        if self.degree_satiety <= 50:
+        self.food()
+        if self.degree_satiety < 25:
             self.eat()
             return False
         return True
-
-
-# TODO Помимо целых действий вроде eat
-# TODO Можно выделять схожие части методов и выносить их в родительский класс
-# TODO Например можно взять общие проверки и действия из act
-# TODO Записать их в act родительского класса, добавив к ним возврат
-# TODO либо True, либо False
-# TODO True - если человек жив и способен выполнить какое-нибудь действие
-# TODO False - если человек мертв или уже выполнил одно из действий
-# TODO В act наследников тогда нужно будет использовать вызов метода через super()
-# TODO и проверить то, что вернёт этот вызов (if super().func())
-# TODO Если возвращается True - продолжать выбор действия, если False - завершать функцию
 
 
 class Husband(Man):
@@ -124,20 +111,9 @@ class Husband(Man):
 
         if not super().act():
             return
-            # TODO из этой проверки всё убираем, Eat вызывать не нужно
-            # TODO Эта проверка нужно только для того, чтобы завершить работу акта, если пришёл False
-            # TODO из родительского акта
-            # TODO т.е. мы пишем if not super().act() --> return
-            # if isinstance(self.degree_satiety, Man):
-            #     self.eat()
-
-        # super().depression()  # TODO здесь убираем то, что уже есть в родительском акте (depression и food)
-        # super().food()
         dice = randint(1, 4)
         if self.house.count_money <= 100:
             self.work()
-        # elif self.degree_satiety <= 50:  # TODO и вот эту проверку с eat() тоже убираем
-        #     self.eat()
         elif self.degree_happy < 30:
             self.gaming()
         elif dice == 1:
@@ -148,15 +124,6 @@ class Husband(Man):
             self.work()
         elif dice == 4:
             self.work()
-
-    def eat(self):
-        if self.house.count_food >= 25:
-            cprint('{} поел'.format(self.name), color='yellow')
-            self.degree_satiety += 25
-            self.house.total_food += 25
-            self.house.count_food -= 25
-        else:
-            cprint('{} нет еды'.format(self.name), color='red')
 
     def work(self):
         cprint('{} сходил на работу'.format(self.name), color='blue')
@@ -183,17 +150,9 @@ class Wife(Man):
     def act(self):
         if not super().act():
             return
-            # if (self.degree_satiety <= 0) or (self.degree_happy <= 10):
-            #     cprint('{} умерла...'.format(self.name), color='red')
-            #     return
-        # super().depression()
-        # super().food()
         dice = randint(1, 4)
-
         if self.house.count_food <= 50:
             self.shopping()
-        # elif self.degree_satiety <= 50:
-        #     self.eat()
         elif self.degree_happy < 50:
             self.buy_fur_coat()
         elif self.degree_satiety <= 20:
@@ -209,20 +168,11 @@ class Wife(Man):
         elif dice == 4:
             self.buy_fur_coat()
 
-    def eat(self):
-        if self.house.count_food >= 25:
-            cprint('{} поела'.format(self.name), color='yellow')
-            self.degree_satiety += 25
-            self.house.total_food += 25
-            self.house.count_food -= 25
-        else:
-            cprint('{} нет еды'.format(self.name), color='red')
-
     def shopping(self):
-        if self.house.count_money >= 90:
+        if self.house.count_money >= 100:
             cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
-            self.house.count_money -= 90
-            self.house.count_food += 90
+            self.house.count_money -= 100
+            self.house.count_food += 100
             self.degree_satiety -= 10
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
