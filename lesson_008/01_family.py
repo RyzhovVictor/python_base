@@ -86,10 +86,6 @@ class Man:
         else:
             cprint('{} нет еды'.format(self.name), color='red')
 
-    # def petting_cat(self):
-    #     self.degree_happy += 5
-    #     cprint('{} погладил(а) кота'.format(self.name), color='yellow')
-
     def act(self):
         if (self.degree_satiety <= 0) or (self.degree_happy < 10):
             cprint('{} умер...'.format(self.name), color='red')
@@ -129,8 +125,6 @@ class Husband(Man):
             self.work()
         elif dice == 4:
             self.work()
-        # elif dice == 5:
-        #     self.petting_cat()
 
     def work(self):
         cprint('{} сходил на работу'.format(self.name), color='blue')
@@ -160,8 +154,6 @@ class Wife(Man):
             self.shopping()
         elif self.degree_happy < 30:
             self.buy_fur_coat()
-        # elif self.degree_happy <= 15:
-        #     self.petting_cat()
         elif self.house.count_mud > 100:
             self.clean_house()
         elif dice == 1:
@@ -172,8 +164,6 @@ class Wife(Man):
             self.shopping()
         elif dice == 4:
             self.buy_fur_coat()
-        # elif dice == 5:
-        #     self.petting_cat()
 
     def shopping(self):
         if self.house.count_money >= 100:
@@ -197,25 +187,6 @@ class Wife(Man):
             self.house.count_mud -= 100
             cprint('{} Убралась'.format(self.name))
 
-
-home = House()
-serge = Husband(name='Сережа')
-masha = Wife(name='Маша')
-
-for day in range(366):
-    cprint('================== День {} =================='.format(day), color='red')
-    serge.act()
-    masha.act()
-    cprint(serge, color='cyan')
-    cprint(masha, color='cyan')
-    cprint(home, color='cyan')
-    home.count_mud += 5
-
-count_coat = int(home.total_buy_coat / 350)
-
-cprint('Всего заработанных денег: {}'.format(home.total_money), color='yellow')
-cprint('Всего съедено еды: {}'.format(home.total_food), color='yellow')
-cprint('Всего купленно шуб: {}'.format(count_coat), color='yellow')
 
 # TODO после реализации первой части - отдать на проверку учителю
 
@@ -273,23 +244,68 @@ cprint('Всего купленно шуб: {}'.format(count_coat), color='yello
 # отличия от взрослых - кушает максимум 10 единиц еды,
 # степень счастья  - не меняется, всегда ==100 ;)
 
-# class Child:
-#
-#     def __init__(self):
-#         pass
-#
-#     def __str__(self):
-#         return super().__str__()
-#
-#     def act(self):
-#         pass
-#
-#     def eat(self):
-#         pass
-#
-#     def sleep(self):
-#         pass
+class Child:
 
+    def __init__(self, name):
+        self.name = name
+        self.house = home
+        self.degree_satiety = 30
+        self.degree_happy = 100
+
+    def __str__(self):
+        return 'Я {}, Степень сытости: {} Степень счастья: {}'.format(self.name, self.degree_satiety,
+                                                                      self.degree_happy)
+
+    def act(self):
+        if self.degree_satiety <= 0:
+            cprint('{} умер от голода...'.format(self.name), color='red')
+            return
+        dice = randint(1, 2)
+        if self.degree_satiety <= 20:
+            self.eat()
+        elif dice == 1:
+            self.eat()
+        elif dice == 2:
+            self.sleep()
+
+    def eat(self):
+        if self.house.count_food >= 15:
+            cprint('{} поел(а)'.format(self.name), color='yellow')
+            self.degree_satiety += 20
+            self.house.total_food += 10
+            self.house.count_food -= 10
+        else:
+            cprint('{} нет еды'.format(self.name), color='red')
+
+    def sleep(self):
+        self.degree_satiety -= 10
+        cprint('{} спал весь день'.format(self.name), color='magenta')
+
+
+home = House()
+serge = Husband(name='Сережа')
+masha = Wife(name='Маша')
+# murzik = Cat(name='Мурзик')
+kolya = Child(name='Коля')
+
+for day in range(366):
+    cprint('================== День {} =================='.format(day), color='red')
+    serge.act()
+    masha.act()
+    # murzik.act()
+    kolya.act()
+    cprint(serge, color='cyan')
+    cprint(masha, color='cyan')
+    # cprint(murzik, color='cyan')
+    cprint(kolya, color='cyan')
+    cprint(home, color='cyan')
+    home.count_mud += 5
+
+count_coat = int(home.total_buy_coat / 350)
+
+cprint('Всего заработанных денег: {}'.format(home.total_money), color='yellow')
+cprint('Всего съедено еды: {}'.format(home.total_food), color='yellow')
+cprint('Всего купленно шуб: {}'.format(count_coat), color='yellow')
 
 # TODO после реализации второй части - отдать на проверку учителем две ветки
 
