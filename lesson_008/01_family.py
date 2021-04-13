@@ -80,7 +80,7 @@ class Man:
     def eat(self):
         if self.house.count_food >= 15:
             cprint('{} поел(а)'.format(self.name), color='yellow')
-            self.degree_satiety += 15
+            self.degree_satiety += 25
             self.house.total_food += 15
             self.house.count_food -= 15
         else:
@@ -96,7 +96,7 @@ class Man:
             return False
         self.depression()
         self.food()
-        if self.degree_satiety <= 15:
+        if self.degree_satiety <= 30:
             self.eat()
             return False
         return True
@@ -136,11 +136,9 @@ class Husband(Man):
         cprint('{} сходил на работу'.format(self.name), color='blue')
         self.house.count_money += 150
         self.house.total_money += 150
-        self.degree_satiety -= 10
 
     def gaming(self):
         cprint('{} Играл в WoT'.format(self.name), color='green')
-        self.degree_satiety -= 10
         self.degree_happy += 20
 
 
@@ -158,14 +156,12 @@ class Wife(Man):
         if not super().act():
             return
         dice = randint(1, 5)
-        if self.house.count_food <= 15:
+        if self.house.count_food <= 30:
             self.shopping()
-        elif self.degree_happy < 75:
-            self.buy_fur_coat()
         elif self.degree_happy < 30:
+            self.buy_fur_coat()
+        elif self.degree_happy <= 15:
             self.petting_cat()
-        # elif self.degree_satiety <= 30:
-        #     self.eat()
         elif self.house.count_mud > 100:
             self.clean_house()
         elif dice == 1:
@@ -184,7 +180,6 @@ class Wife(Man):
             cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
             self.house.count_money -= 100
             self.house.count_food += 100
-            self.degree_satiety -= 10
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
@@ -193,7 +188,6 @@ class Wife(Man):
             cprint('{} сходила в магазин за шубой'.format(self.name), color='magenta')
             self.house.count_money -= 350
             self.house.total_buy_coat += 350
-            self.degree_satiety -= 10
             self.degree_happy += 60
         else:
             cprint('Денег на шубу нет!', color='red')
@@ -202,9 +196,6 @@ class Wife(Man):
         if self.house.count_mud >= 100:
             self.house.count_mud -= 100
             cprint('{} Убралась'.format(self.name))
-            self.degree_satiety -= 10
-        # elif self.house.count_mud < 20:
-        #     self.act()
 
 
 # TODO после реализации первой части - отдать на проверку учителю
