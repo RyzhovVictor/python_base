@@ -285,18 +285,15 @@ class Child:
 home = House()
 serge = Husband(name='Сережа')
 masha = Wife(name='Маша')
-# murzik = Cat(name='Мурзик')
 kolya = Child(name='Коля')
 
 for day in range(366):
     cprint('================== День {} =================='.format(day), color='red')
     serge.act()
     masha.act()
-    # murzik.act()
     kolya.act()
     cprint(serge, color='cyan')
     cprint(masha, color='cyan')
-    # cprint(murzik, color='cyan')
     cprint(kolya, color='cyan')
     cprint(home, color='cyan')
     home.count_mud += 5
