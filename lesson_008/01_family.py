@@ -176,10 +176,10 @@ class Wife(Man):
             self.petting_cat()
 
     def shopping(self):
-        if self.house.count_money >= 100:
+        if self.house.count_money >= 150:
             cprint('{} сходила в магазин за едой'.format(self.name), color='magenta')
-            self.house.count_money -= 100
-            self.house.count_food += 100
+            self.house.count_money -= 150
+            self.house.count_food += 150
         else:
             cprint('{} деньги кончились!'.format(self.name), color='red')
 
