@@ -39,6 +39,7 @@ with open(file_name, 'r', encoding='cp1251') as file:
                     stat[prev_char] += 1
                 else:
                     stat[prev_char] = 1
+print(stat)
 # TODO в сортировке два параметра позволяют реализовать всю нужную логику
 # TODO первый - key, который определяет по каким значениям надо проводить сортировку.
 # TODO я бы правда советовал делать выбор через lamda x: x[0]
