@@ -40,6 +40,14 @@ with open(file_name, 'r', encoding='cp1251') as file:
                 else:
                     stat[prev_char] = 1
 print(stat)
+print(sorted(stat.items(), key=lambda x: x[1], reverse=True))
+# TODO лямбду использовать не обязательно, подойдет любая функция, которая на вход получит пару ключ-значение
+# TODO и на выход вернёт одно значение
+def test(pair):
+    return pair[1]
+print(sorted(stat.items(), key=test, reverse=True))
+
+
 # TODO в сортировке два параметра позволяют реализовать всю нужную логику
 # TODO первый - key, который определяет по каким значениям надо проводить сортировку.
 # TODO я бы правда советовал делать выбор через lamda x: x[0]
