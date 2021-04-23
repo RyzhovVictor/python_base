@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import zipfile
-from random import randint
+
 
 # Подсчитать статистику по буквам в романе Война и Мир.
 # Входные параметры: файл для сканирования
@@ -28,65 +28,68 @@ from random import randint
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
-file_name = 'voyna-i-mir.txt'
-stat = {}
+class StatLetter:
+    def __init__(self, file_name):
+        self.file_name = file_name
+        self.stat = {}
 
-with open(file_name, 'r', encoding='cp1251') as file:
-    for line in file:
+    def unzip(self):
+        global filename
+        z_file = zipfile.ZipFile(self.file_name, 'r')
+        for filename in z_file.namelist():
+            z_file.extract(filename)
+        self.file_name = filename
+
+    def collect(self):
+        if self.file_name.endswith('.zip'):
+            self.unzip()
+        with open(self.file_name, 'r', encoding='cp1251') as file:
+            for line in file:
+                self._collect_for_line(line=line[:-1])
+
+    def _collect_for_line(self, line):
         for prev_char in line:
             if prev_char.isalpha():
-                if prev_char in stat:
-                    stat[prev_char] += 1
+                if prev_char in self.stat:
+                    self.stat[prev_char] += 1
                 else:
-                    stat[prev_char] = 1
-print(stat)
-print(sorted(stat.items(), key=lambda x: x[1], reverse=True))
-# TODO лямбду использовать не обязательно, подойдет любая функция, которая на вход получит пару ключ-значение
-# TODO и на выход вернёт одно значение
-def test(pair):
-    return pair[1]
-print(sorted(stat.items(), key=test, reverse=True))
+                    self.stat[prev_char] = 1
+
+    def sort_for_table(self, pair):
+        return pair[1]
+
+    def printed(self):
+        txt = '+'
+        print(f'+{txt:-^30}+')
+
+        txt = '|'
+        txt_1 = 'Буква'
+        txt_2 = 'Частота'
+        print(f'|{txt_1:^13} {txt:^1} {txt_2:^14}|')
+
+        txt = '+'
+        print(f'+{txt:-^30}+')
+
+        total_count = 0
+        for alphabet, count in sorted(self.stat.items(), key=self.sort_for_table, reverse=False):
+            txt = '|'
+            print(f'|{alphabet:^13} {txt:^1} {count:^14}|')
+            total_count += count
+
+        txt = '+'
+        print(f'+{txt:-^30}+')
+
+        txt = '|'
+        txt_1 = 'ИТОГО'
+        txt_2 = total_count
+        print(f'|{txt_1:^13} {txt:^1} {txt_2:^14}|')
+        txt = '+'
+        print(f'+{txt:-^30}+')
 
 
-# TODO в сортировке два параметра позволяют реализовать всю нужную логику
-# TODO первый - key, который определяет по каким значениям надо проводить сортировку.
-# TODO я бы правда советовал делать выбор через lamda x: x[0]
-# TODO т.е. из словаря берется кортеж из двух элементов (ключ, значение)
-# TODO к этому кортежу применяете заданная lambda,
-# TODO в нашем случае из кортежа будет взят элемент под индексом 0, т.е. сортировка пойдет по ключам
-# TODO вторым параметром является reverse=True или False
-# TODO он изменяет направление сортировки (по возрастанию/убыванию)
-txt = '+'
-print(f'+{txt:-^30}+')
-
-txt = '|'
-txt_1 = 'Буква'
-txt_2 = 'Частота'
-print(f'|{txt_1:^13} {txt:^1} {txt_2:^14}|')
-
-txt = '+'
-print(f'+{txt:-^30}+')
-
-total_count = 0
-for alphabet, count in stat.items():
-    txt = '|'
-    print(f'|{alphabet:^13} {txt:^1} {count:^14}|')
-    total_count += count
-    # for sort in sorted(str(count)):
-    #     txt = '|'
-    #     print(f'|{alphabet:^13} {txt:^1} {count:^14}|')
-    #     total_count += count
-
-txt = '+'
-print(f'+{txt:-^30}+')
-
-txt = '|'
-txt_1 = 'ИТОГО'
-txt_2 = total_count
-print(f'|{txt_1:^13} {txt:^1} {txt_2:^14}|')
-txt = '+'
-print(f'+{txt:-^30}+')
-
+statletter = StatLetter(file_name='voyna-i-mir.txt.zip')
+statletter.collect()
+statletter.printed()
 
 # После зачета первого этапа нужно сделать упорядочивание статистики
 #  - по частоте по возрастанию
