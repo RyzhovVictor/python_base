@@ -30,6 +30,7 @@ import zipfile
 
 class StatLetter:
     def __init__(self, file_name):
+        self.total_count = 0
         self.file_name = file_name
         self.stat = {}
 
@@ -58,48 +59,59 @@ class StatLetter:
     def sort_for_table(self, pair):
         return pair[1]
 
+    def decreasing_frequency(self):
+        for alphabet, count in sorted(self.stat.items(), key=self.sort_for_table, reverse=True):
+            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
+            self.total_count += count
+
     def printed(self):
-        txt = '+'
-        print(f'+{txt:-^30}+')
+        print(f'+{"+":-^30}+')
+        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
+        print(f'+{"+":-^30}+')
+        self.decreasing_frequency()
+        print(f'+{"+":-^30}+')
+        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
+        print(f'+{"+":-^30}+')
 
-        txt = '|'  # TODO выделять под одиночные символы переменную на одну операцию - не стоит
-        # TODO лучше сократить код и просто вставить эти символы в строку напрямую
-        # TODO (либо сформировать атрибут-словарь например и там все их расположить, но это надо хорошо обдумать)
-        txt_1 = 'Буква'
-        txt_2 = 'Частота'
-        print(f'|{txt_1:^13} {txt:^1} {txt_2:^14}|')
 
-        txt = '+'
-        print(f'+{txt:-^30}+')
-
-        total_count = 0
-        # TODO сортировку надо выносить в отдельный метод
-        # TODO представьте, что методы - это ваши работники
-        # TODO вы платите каждому за свою работу
-        # TODO но тут внезапно человек, который занимался печатью документов внезапно должен ещё заниматься сортировкой
-        # TODO разве это будет правильно?
-        # TODO (такой принцип в целом хорошо влияет на программу, т.к. каждая сущность (метод в нашем случае)
-        # TODO будет отвечать за одно небольшое дело, тогда мы сможем быстро вычислять проблему, если они возникнут
-        # TODO либо сможем быстро изменять код, если будет такая необходимость)
+class Sorting(StatLetter):
+    def increasing_frequency(self):
         for alphabet, count in sorted(self.stat.items(), key=self.sort_for_table, reverse=False):
-            txt = '|'
-            print(f'|{alphabet:^13} {txt:^1} {count:^14}|')
-            total_count += count
+            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
+            self.total_count += count
 
-        txt = '+'
-        print(f'+{txt:-^30}+')
+    def descending_letters(self):
+        for alphabet, count in sorted(self.stat.items(), key=self.sort_for_table, reverse=False):
+            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
+            self.total_count += count
 
-        txt = '|'
-        txt_1 = 'ИТОГО'
-        txt_2 = total_count
-        print(f'|{txt_1:^13} {txt:^1} {txt_2:^14}|')
-        txt = '+'
-        print(f'+{txt:-^30}+')
+    def printed(self):
+        print(f'+{"+":-^30}+')
+        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
+        print(f'+{"+":-^30}+')
+        self.increasing_frequency()
+        print(f'+{"+":-^30}+')
+        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
+        print(f'+{"+":-^30}+')
+
+        print(f'+{"+":-^30}+')
+        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
+        print(f'+{"+":-^30}+')
+        self.descending_letters()
+        print(f'+{"+":-^30}+')
+        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
+        print(f'+{"+":-^30}+')
 
 
-statletter = StatLetter(file_name='voyna-i-mir.txt.zip')
-statletter.collect()
-statletter.printed()
+
+
+stat_letter = StatLetter(file_name='voyna-i-mir.txt.zip')
+stat_letter.collect()
+stat_letter.printed()
+
+sorting = Sorting(file_name='voyna-i-mir.txt.zip')
+sorting.collect()
+sorting.printed()
 # TODO во второй части можно будет создать наследников от класса выше
 # TODO и переопределить только метод сортировки.
 # После зачета первого этапа нужно сделать упорядочивание статистики
