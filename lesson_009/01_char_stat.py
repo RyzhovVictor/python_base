@@ -63,7 +63,10 @@ class StatLetter:
         return pair[0]
 
     def sort(self):
-            self.sorted_date = sorted(self.stat.items(), key=self.sort_for_frequency, reverse=True)
+        self.sorted_date = sorted(self.stat.items(), key=self.sort_for_frequency, reverse=True)
+        for alphabet, count in self.sorted_date:
+            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
+            self.total_count += count
 
     def printed(self):
         print(f'+{"+":-^30}+')
@@ -97,12 +100,26 @@ class StatLetter:
 
 class Sorting(StatLetter):
     def sort(self):
-        sorted_date = sorted(self.stat.items(), key=self.sort_for_frequency, reverse=False)
+        self.sorted_date = sorted(self.stat.items(), key=self.sort_for_frequency, reverse=False)
+
+    def printed(self):
+        print(f'+{"+":-^30}+')
+        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
+        print(f'+{"+":-^30}+')
+        self.sort()
+        print(f'+{"+":-^30}+')
+        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
+        print(f'+{"+":-^30}+')
 
 
 sorting = Sorting(file_name='voyna-i-mir.txt.zip')
 sorting.collect()
 sorting.printed()
+
+stat_letter = StatLetter(file_name='voyna-i-mir.txt.zip')
+stat_letter.collect()
+stat_letter.printed()
+
 # После зачета первого этапа нужно сделать упорядочивание статистики
 #  - по частоте по возрастанию
 #  - по алфавиту по возрастанию
