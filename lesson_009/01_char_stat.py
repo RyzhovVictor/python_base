@@ -62,6 +62,18 @@ class StatLetter:
     def sort_for_letters(self, pair):
         return pair[0]
 
+    def sort(self):
+            self.sorted_date = sorted(self.stat.items(), key=self.sort_for_frequency, reverse=True)
+
+    def printed(self):
+        print(f'+{"+":-^30}+')
+        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
+        print(f'+{"+":-^30}+')
+        self.sort()
+        print(f'+{"+":-^30}+')
+        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
+        print(f'+{"+":-^30}+')
+
     # TODO не совсем то, что подразумевается под шаблонным методом
     # TODO идея вот какая - в родителе мы реализуем один тип работы
     # TODO при этом изменяемую часть в этой работе надо выделить в отдельный метод с минимумом кода
@@ -84,58 +96,8 @@ class StatLetter:
 
 
 class Sorting(StatLetter):
-    def decreasing_frequency(self):
-        for alphabet, count in sorted(self.stat.items(), key=self.sort_for_frequency, reverse=True):
-            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
-            self.total_count += count
-
-    def increasing_frequency(self):
-        for alphabet, count in sorted(self.stat.items(), key=self.sort_for_frequency, reverse=False):
-            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
-            self.total_count += count
-
-    def descending_letters(self):
-        for alphabet, count in sorted(self.stat.items(), key=self.sort_for_letters, reverse=True):
-            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
-            self.total_count += count
-
-    def ascending_letters(self):
-        for alphabet, count in sorted(self.stat.items(), key=self.sort_for_letters, reverse=False):
-            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
-            self.total_count += count
-
-    def printed(self):
-        print(f'+{"+":-^30}+')
-        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
-        print(f'+{"+":-^30}+')
-        self.decreasing_frequency()
-        print(f'+{"+":-^30}+')
-        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
-        print(f'+{"+":-^30}+')
-
-        print(f'+{"+":-^30}+')
-        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
-        print(f'+{"+":-^30}+')
-        self.increasing_frequency()
-        print(f'+{"+":-^30}+')
-        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
-        print(f'+{"+":-^30}+')
-
-        print(f'+{"+":-^30}+')
-        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
-        print(f'+{"+":-^30}+')
-        self.descending_letters()
-        print(f'+{"+":-^30}+')
-        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
-        print(f'+{"+":-^30}+')
-
-        print(f'+{"+":-^30}+')
-        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
-        print(f'+{"+":-^30}+')
-        self.ascending_letters()
-        print(f'+{"+":-^30}+')
-        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
-        print(f'+{"+":-^30}+')
+    def sort(self):
+        sorted_date = sorted(self.stat.items(), key=self.sort_for_frequency, reverse=False)
 
 
 sorting = Sorting(file_name='voyna-i-mir.txt.zip')
