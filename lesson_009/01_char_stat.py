@@ -56,36 +56,28 @@ class StatLetter:
                 else:
                     self.stat[prev_char] = 1
 
-    def sort_for_frequency(self, pair):  # TODO эти два метода можно убрать
-        return pair[1]
-
-    def sort_for_letters(self, pair):
-        return pair[0]
+    # def sort_for_frequency(self, pair):  # TODO эти два метода можно убрать
+    #     return pair[1]
+    #
+    # def sort_for_letters(self, pair):
+    #     return pair[0]
 
     def sort(self):
-        self.sorted_date = sorted(self.stat.items(), key=self.sort_for_frequency, reverse=True)
-        # TODO здесь напрямую укажите вместо self.sort_for_frequency
-        # TODO lambda x: x[1]
-
-
-        # TODO цикл с печатью перенесите в printed
-        for alphabet, count in self.sorted_date:
-            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
-            self.total_count += count
+        self.sorted_date = sorted(self.stat.items(), key=lambda x: x[1], reverse=True)
 
     def printed(self):
         print(f'+{"+":-^30}+')
         print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
         print(f'+{"+":-^30}+')
-        self.sort()
+        for alphabet, count in self.sorted_date:
+            print(f'|{alphabet:^13} {"|":^1} {count:^14}|')
+            self.total_count += count
         print(f'+{"+":-^30}+')
         print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
         print(f'+{"+":-^30}+')
 
-
     # TODO Добавьте метод run
     # TODO в котором будут вызываться по очереди нужные методы collect + sort + printed
-
 
     # TODO не совсем то, что подразумевается под шаблонным методом
     # TODO идея вот какая - в родителе мы реализуем один тип работы
