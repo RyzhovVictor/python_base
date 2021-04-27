@@ -56,13 +56,7 @@ class StatLetter:
                 else:
                     self.stat[prev_char] = 1
 
-    # def sort_for_frequency(self, pair):  # TODO эти два метода можно убрать
-    #     return pair[1]
-    #
-    # def sort_for_letters(self, pair):
-    #     return pair[0]
-
-    def sort(self):
+    def sort_10_1(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[1], reverse=True)
 
     def printed(self):
@@ -76,53 +70,39 @@ class StatLetter:
         print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
         print(f'+{"+":-^30}+')
 
-    # TODO Добавьте метод run
-    # TODO в котором будут вызываться по очереди нужные методы collect + sort + printed
-
-    # TODO не совсем то, что подразумевается под шаблонным методом
-    # TODO идея вот какая - в родителе мы реализуем один тип работы
-    # TODO при этом изменяемую часть в этой работе надо выделить в отдельный метод с минимумом кода
-    # TODO в наследниках мы переопределяем только этот отдельный метод
-    # TODO и в итоге получаем программу, которая работает иначе
-    # TODO Здесь эта часть - сортировка
-    # TODO можно написать
-    # TODO деф сортировка(селф):
-    # TODO     селф.сортированные_данные = сортед(...)
-    # TODO и всё, одной строчки хватит
-    # TODO дальше создаем наследника и в нём пишем этот же метод
-    # TODO деф сортировка(селф):
-    # TODO     селф.сортированные_данные = сортед(..., reverse=True)  -- но изменяем тип сортировки
-    # TODO ВСЕ остальные методы наследник возьмёт у родителя, но сортировка будет новой
-    # TODO из-за этого работать наследник будет иначе.
-    # TODO Чтобы реализовать эту идею вам нужно:
-    # TODO 1) Выделить сортировку в отдельный метод (у вас сейчас она совмещена с печатью)
-    # TODO 2) вернуть печать ОДНОГО типа данных в родителя (без дублирования под каждую сортировку)
-    # TODO 3) создать наследников с изменением ОДНОГО метода из ОДНОЙ строчки
+    def run(self):
+        self.collect()
+        self.sort_10_1()
+        self.printed()
 
 
 class Sorting(StatLetter):
-    def sort(self):
-        self.sorted_date = sorted(self.stat.items(), key=self.sort_for_frequency, reverse=False)
-        # TODO здесь напрямую укажите вместо self.sort_for_frequency
-        # TODO lambda x: x[0]
+    def sort_1_10(self):
+        self.sorted_date = sorted(self.stat.items(), key=lambda x: x[1], reverse=False)
 
-    def printed(self):  # TODO здесь printed можно убрать
-        print(f'+{"+":-^30}+')
-        print(f'|{"Буква":^13} {"|":^1} {"Частота":^14}|')
-        print(f'+{"+":-^30}+')
-        self.sort()
-        print(f'+{"+":-^30}+')
-        print(f'|{"ИТОГО":^13} {"|":^1} {self.total_count:^14}|')
-        print(f'+{"+":-^30}+')
+    def sort_Z_A(self):
+        self.sorted_date = sorted(self.stat.items(), key=lambda x: x[0], reverse=True)
 
+    def sort_A_Z(self):
+        self.sorted_date = sorted(self.stat.items(), key=lambda x: x[0], reverse=False)
 
-sorting = Sorting(file_name='voyna-i-mir.txt.zip')
-sorting.collect()
-sorting.printed()
+    def run(self):
+        self.collect()
+        self.sort_1_10()
+        self.printed()
+        self.collect()
+        self.sort_Z_A()
+        self.printed()
+        self.collect()
+        self.sort_A_Z()
+        self.printed()
+
 
 stat_letter = StatLetter(file_name='voyna-i-mir.txt.zip')
-stat_letter.collect()
-stat_letter.printed()
+stat_letter.run()
+
+sorting = Sorting(file_name='voyna-i-mir.txt.zip')
+sorting.run()
 
 # После зачета первого этапа нужно сделать упорядочивание статистики
 #  - по частоте по возрастанию
