@@ -56,7 +56,7 @@ class StatLetter:
                 else:
                     self.stat[prev_char] = 1
 
-    def sort_10_1(self):
+    def sort(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[1], reverse=True)
 
     def printed(self):
@@ -72,40 +72,33 @@ class StatLetter:
 
     def run(self):
         self.collect()
-        self.sort_10_1()
+        self.sort()
         self.printed()
 
 
-class Sorting(StatLetter):
-    # TODO идея в том, чтобы конкретную сортировку переопределить для текущео класса
-    # TODO (т.е. 1 класс = 1 сортировка)
-    def sort_1_10(self):
+class Sorting_1_10(StatLetter):
+    def sort(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[1], reverse=False)
 
-    def sort_Z_A(self):
+
+class Sorting_Z_A(StatLetter):
+    def sort(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[0], reverse=True)
 
-    def sort_A_Z(self):
-        self.sorted_date = sorted(self.stat.items(), key=lambda x: x[0], reverse=False)
 
-    def run(self):  # TODO метод run переопределять не нужно, он должен вызывать всё ту же сортировку
-        # TODO которую вызывает родитель (используйте какое-то общее название для сортировок, чтобы не путаться)
-        self.collect()
-        self.sort_1_10()
-        self.printed()
-        self.collect()
-        self.sort_Z_A()
-        self.printed()
-        self.collect()
-        self.sort_A_Z()
-        self.printed()
+class Sorting_A_Z(StatLetter):
+    def sort(self):
+        self.sorted_date = sorted(self.stat.items(), key=lambda x: x[0], reverse=False)
 
 
 stat_letter = StatLetter(file_name='voyna-i-mir.txt.zip')
 stat_letter.run()
-
-sorting = Sorting(file_name='voyna-i-mir.txt.zip')
-sorting.run()
+sorting_1_10 = Sorting_1_10(file_name='voyna-i-mir.txt.zip')
+sorting_1_10.run()
+sorting_Z_A = Sorting_Z_A(file_name='voyna-i-mir.txt.zip')
+sorting_Z_A.run()
+sorting_A_Z = Sorting_A_Z(file_name='voyna-i-mir.txt.zip')
+sorting_A_Z.run()
 
 # После зачета первого этапа нужно сделать упорядочивание статистики
 #  - по частоте по возрастанию
