@@ -33,6 +33,7 @@ class StatLetter:
         self.total_count = 0
         self.file_name = file_name
         self.stat = {}
+        # self.sorted_date = None
 
     def unzip(self):
         global filename
@@ -76,7 +77,9 @@ class StatLetter:
         self.printed()
 
 
-class Sorting_1_10(StatLetter):
+class Sorting_1_10(StatLetter):  # TODO всё верно, только теперь стилистические ошибки надо поправить
+    # TODO 1)в названиях классов не нужно использовать "_" (стиль называется CamelCase)
+    # TODO 2) в init родительского класса надо вынести создание атрибута self.sorted_date (привёл пример как)
     def sort(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[1], reverse=False)
 
