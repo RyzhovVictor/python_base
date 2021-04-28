@@ -33,7 +33,7 @@ class StatLetter:
         self.total_count = 0
         self.file_name = file_name
         self.stat = {}
-        # self.sorted_date = None
+        self.sorted_date = None
 
     def unzip(self):
         global filename
@@ -77,30 +77,28 @@ class StatLetter:
         self.printed()
 
 
-class Sorting_1_10(StatLetter):  # TODO всё верно, только теперь стилистические ошибки надо поправить
-    # TODO 1)в названиях классов не нужно использовать "_" (стиль называется CamelCase)
-    # TODO 2) в init родительского класса надо вынести создание атрибута self.sorted_date (привёл пример как)
+class FrequencyIncreasing(StatLetter):
     def sort(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[1], reverse=False)
 
 
-class Sorting_Z_A(StatLetter):
+class AlphabetDescending(StatLetter):
     def sort(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[0], reverse=True)
 
 
-class Sorting_A_Z(StatLetter):
+class AlphabetAscending(StatLetter):
     def sort(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[0], reverse=False)
 
 
 stat_letter = StatLetter(file_name='voyna-i-mir.txt.zip')
 stat_letter.run()
-sorting_1_10 = Sorting_1_10(file_name='voyna-i-mir.txt.zip')
+sorting_1_10 = FrequencyIncreasing(file_name='voyna-i-mir.txt.zip')
 sorting_1_10.run()
-sorting_Z_A = Sorting_Z_A(file_name='voyna-i-mir.txt.zip')
+sorting_Z_A = AlphabetDescending(file_name='voyna-i-mir.txt.zip')
 sorting_Z_A.run()
-sorting_A_Z = Sorting_A_Z(file_name='voyna-i-mir.txt.zip')
+sorting_A_Z = AlphabetAscending(file_name='voyna-i-mir.txt.zip')
 sorting_A_Z.run()
 
 # После зачета первого этапа нужно сделать упорядочивание статистики
