@@ -77,6 +77,8 @@ class StatLetter:
 
 
 class Sorting(StatLetter):
+    # TODO идея в том, чтобы конкретную сортировку переопределить для текущео класса
+    # TODO (т.е. 1 класс = 1 сортировка)
     def sort_1_10(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[1], reverse=False)
 
@@ -86,7 +88,8 @@ class Sorting(StatLetter):
     def sort_A_Z(self):
         self.sorted_date = sorted(self.stat.items(), key=lambda x: x[0], reverse=False)
 
-    def run(self):
+    def run(self):  # TODO метод run переопределять не нужно, он должен вызывать всё ту же сортировку
+        # TODO которую вызывает родитель (используйте какое-то общее название для сортировок, чтобы не путаться)
         self.collect()
         self.sort_1_10()
         self.printed()
