@@ -28,19 +28,28 @@ class Events:
     def __init__(self, input_file, output_file):
         self.input_file = input_file
         self.output_file = output_file
-        self.count = 0
+        self.stat = {}
 
     def read(self):
         with open(self.input_file, 'r', encoding='utf-8') as file:
             for line in file:
                 if 'NOK' in line:
                     line = line.strip()[1:17]
-                    print(line)
+                    if line in self.stat:
+                        self.stat[line] += 1
+                    else:
+                        self.stat[line] = 1
+
+    def write(self):
+        with open(self.output_file, 'w', encoding='utf-8') as file:
+            for dates, count in self.stat.items():
+                # print(f'[{dates}] {count}')
+                file.write(f'[{dates}] {count}\n')
 
 
-
-read = Events('events.txt', 'output_file.txt')
-read.read()
+processing = Events('events.txt', 'output_file.txt')
+processing.read()
+processing.write()
 
 # После зачета первого этапа нужно сделать группировку событий
 #  - по часам
