@@ -44,7 +44,9 @@ class Events:
         with open(self.input_file, 'r', encoding='utf-8') as file:
             for line in file:
                 if 'NOK' in line:
-                    line = line.strip()[1:14]
+                    line = line.strip()[1:14]  # TODO обратите внимание, что изменяется только одно число
+                    # TODO попробуйте сделать это число атрибутом класса (или параметром метода)
+                    # TODO и наследуйте новый класс с новым атрибутом (каждый класс будет иметь свой атрибут и делать свою группировку)
                     if line in self.stat:
                         self.stat[line] += 1
                     else:
