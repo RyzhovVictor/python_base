@@ -48,8 +48,15 @@ class Events:
 
 
 class Events_hours(Events):
-    def read_hours(self):
-        self.read_minute()
+
+    def __init__(self, input_file, output_file):
+        super().__init__(input_file, output_file)
+        self.group = 14  # TODO вот так стоит указать конкретный атрибут для объекта
+        # TODO параметром его передавать не стоит (в нашем случае - а так метод рабочий)
+
+
+    # def read_hours(self):
+    #     self.read_minute()
 
 
 class Events_month(Events):
@@ -70,7 +77,6 @@ processing_month = Events_month('events.txt', 'sort_month.txt', 8)
 processing_month.read_month()
 processing_years = Events_years('events.txt', 'sort_years.txt', 5)
 processing_years.read_years()
-
 
 processing_minute.write()
 processing_hours.write()
