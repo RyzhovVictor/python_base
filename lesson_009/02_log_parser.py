@@ -53,7 +53,8 @@ class Events_hours(Events):
         with open(self.input_file, 'r', encoding='utf-8') as file:
             for line in file:
                 if 'NOK' in line:
-                    self.group = 14
+                    self.group = 14  # TODO атрибут можно и нужно вынести в Init класса
+                    # TODO тогда весь этот метод дублировать будет не нужно, мы просто изменим в init одну строку
                     line = line.strip()[1:self.group]
                     if line in self.stat:
                         self.stat[line] += 1
