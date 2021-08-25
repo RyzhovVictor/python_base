@@ -47,43 +47,36 @@ class Events:
                 file.write(f'[{dates}] {count}\n')
 
 
-class Events_hours(Events):  # TODO используйте стиль CamelCase для названия классов
-    # TODO https://ru.wikipedia.org/wiki/CamelCase
-
+class EventsHours(Events):
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
         self.group = 14
-        # self.read_minute()
 
 
-class Events_month(Events):
-
+class EventsMonth(Events):
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
         self.group = 8
-        # self.read_minute()
 
 
-class Events_years(Events):
-
+class EventsYears(Events):
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
         self.group = 5
-        # self.read_minute()
 
 
-# processing_minute = Events('events.txt', 'sort_minute.txt')
-# processing_minute.read_minute()
-processing_hours = Events_hours('events.txt', 'sort_hours.txt')
-processing_hours.read_minute()  # TODO сам метод мы не трогали никак и нигде, но он будет работать с self.group = 14
-# TODO понимаете как это устроено?
+processing_minute = Events('events.txt', 'sort_minute.txt')
+processing_minute.read_minute()
+processing_minute.write()
+processing_hours = EventsHours('events.txt', 'sort_hours.txt')
+processing_hours.read_minute()
 processing_hours.write()
-# processing_month = Events_month('events.txt', 'sort_month.txt')
-# processing_years = Events_years('events.txt', 'sort_years.txt')
-#
-# processing_minute.write()
-# processing_month.write()
-# processing_years.write()
+processing_month = EventsMonth('events.txt', 'sort_month.txt')
+processing_month.read_minute()
+processing_month.write()
+processing_years = EventsYears('events.txt', 'sort_years.txt')
+processing_years.read_minute()
+processing_years.write()
 
 # После зачета первого этапа нужно сделать группировку событий
 #  - по часам
