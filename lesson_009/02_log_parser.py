@@ -47,12 +47,13 @@ class Events:
                 file.write(f'[{dates}] {count}\n')
 
 
-class Events_hours(Events):
+class Events_hours(Events):  # TODO используйте стиль CamelCase для названия классов
+    # TODO https://ru.wikipedia.org/wiki/CamelCase
 
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
         self.group = 14
-        self.read_minute()
+        # self.read_minute()
 
 
 class Events_month(Events):
@@ -60,7 +61,7 @@ class Events_month(Events):
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
         self.group = 8
-        self.read_minute()
+        # self.read_minute()
 
 
 class Events_years(Events):
@@ -68,19 +69,21 @@ class Events_years(Events):
     def __init__(self, input_file, output_file):
         super().__init__(input_file, output_file)
         self.group = 5
-        self.read_minute()
+        # self.read_minute()
 
 
-processing_minute = Events('events.txt', 'sort_minute.txt')
-processing_minute.read_minute()
+# processing_minute = Events('events.txt', 'sort_minute.txt')
+# processing_minute.read_minute()
 processing_hours = Events_hours('events.txt', 'sort_hours.txt')
-processing_month = Events_month('events.txt', 'sort_month.txt')
-processing_years = Events_years('events.txt', 'sort_years.txt')
-
-processing_minute.write()
+processing_hours.read_minute()  # TODO сам метод мы не трогали никак и нигде, но он будет работать с self.group = 14
+# TODO понимаете как это устроено?
 processing_hours.write()
-processing_month.write()
-processing_years.write()
+# processing_month = Events_month('events.txt', 'sort_month.txt')
+# processing_years = Events_years('events.txt', 'sort_years.txt')
+#
+# processing_minute.write()
+# processing_month.write()
+# processing_years.write()
 
 # После зачета первого этапа нужно сделать группировку событий
 #  - по часам
