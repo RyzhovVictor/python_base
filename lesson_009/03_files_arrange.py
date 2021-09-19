@@ -43,18 +43,13 @@ import time
 
 
 folder = []
-file_open = os.walk(r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons')
+file_open = os.walk(r'E:\Users\Desktop\Vito\Python\python_base\icons')
 for address, dirs, files in file_open:
     folder.append(files)
-    # for file in files:
-    #     # create_time = os.path.getmtime(address + file)
-    #     print(address + file)
-    #     # print(datetime.fromtimestamp(create_time))
-
-create_time = os.path.getmtime(str(folder))
-print(create_time)
-
-
+    for file in files:
+        create_time = os.path.getmtime(address + '/' + file)
+        print_datetime = datetime.fromtimestamp(create_time)
+        print(f'|{address}\{file} {"":-^15}{">"} {print_datetime} ')
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
