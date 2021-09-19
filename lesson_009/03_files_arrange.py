@@ -42,18 +42,18 @@ import time
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
 
-import os
-from datetime import datetime
-import shutil
-import time
-
 folder = []
-for address, dirs, files in os.walk('icons'):
-    folder.append(address)
-    create_time = os.path.getmtime(files)
-    print(datetime.fromtimestamp(create_time))
-    for file in files:
-        print(address + '/' + file)
+file_open = os.walk(r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons')
+for address, dirs, files in file_open:
+    folder.append(files)
+    # for file in files:
+    #     # create_time = os.path.getmtime(address + file)
+    #     print(address + file)
+    #     # print(datetime.fromtimestamp(create_time))
+
+create_time = os.path.getmtime(str(folder))
+print(create_time)
+
 
 
 # Усложненное задание (делать по желанию)
