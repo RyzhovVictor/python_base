@@ -41,15 +41,30 @@ import time
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
-
 folder = []
 file_open = os.walk(r'E:\Users\Desktop\Vito\Python\python_base\icons')
-for address, dirs, files in file_open:
-    folder.append(files)
-    for file in files:
-        create_time = os.path.getmtime(address + '/' + file)
-        print_datetime = datetime.fromtimestamp(create_time)
-        print(f'|{address}\{file} {"":-^15}{">"} {print_datetime} ')
+
+
+def working_file():
+    for address, dirs, files in file_open:
+        folder.append(files)
+        for file in files:
+            create_time = os.path.getmtime(address + '/' + file)
+            print_datetime = datetime.fromtimestamp(create_time)
+            print(f'|{address}\{file} {"":-^15}{">"} {print_datetime} ')
+
+
+def create_folder(workspace, folders):
+    path = os.path.join(workspace + folders)
+    for path in range(1, 13):
+        if not os.path.exists(str(path)):
+            os.makedirs(str(path))
+            print("create folder with path {0}".format(path))
+        else:
+            print("folder exists {0}".format(path))
+
+
+create_folder(r'E:\Users\Desktop\Vito\Python\python_base\icons_by_year', 'GG')
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
