@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 import os
-import time
+from datetime import datetime
 import shutil
+import time
 
 # Нужно написать скрипт для упорядочивания фотографий (вообще любых файлов)
 # Скрипт должен разложить файлы из одной папки по годам и месяцам в другую.
@@ -40,7 +41,20 @@ import shutil
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
-# TODO здесь ваш код
+
+import os
+from datetime import datetime
+import shutil
+import time
+
+folder = []
+for address, dirs, files in os.walk('icons'):
+    folder.append(address)
+    create_time = os.path.getmtime(files)
+    print(datetime.fromtimestamp(create_time))
+    for file in files:
+        print(address + '/' + file)
+
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
