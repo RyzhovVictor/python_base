@@ -41,57 +41,59 @@ import shutil
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
+class SortedFiles:
 
-folder = []
-file_open = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons'
-path_sorted_files = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons_by_year'
+    def __init__(self):
+        self.folder = []
+        self.file_open = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons'
+        self.path_sorted_files = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons_by_year'
 
+    def create_date(self, address, file):
+        create_time = os.path.getmtime(address + os.sep + file)
+        print_datetime = datetime.datetime.fromtimestamp(create_time)
+        print(f'|{address}{os.sep}{file} {"":-^15}{">"} {print_datetime}|')
+        return datetime.datetime.fromtimestamp(create_time)
 
-def create_date(address, file):
-    create_time = os.path.getmtime(address + os.sep + file)
-    print_datetime = datetime.datetime.fromtimestamp(create_time)
-    print(f'|{address}{os.sep}{file} {"":-^15}{">"} {print_datetime}|')
-    return datetime.datetime.fromtimestamp(create_time)
-
-
-def create_month():
-    for path in range(1, 13):
-        if path > 9:
-            if not os.path.exists(str(path)):
-                os.makedirs(str(path))
-        else:
-            if not os.path.exists('0' + str(path)):
-                os.makedirs('0' + str(path))
-
-
-def create_years():
-    for address, dirs, files in os.walk(file_open):
-        for file in files:
-            if file[-3:] not in folder:
-                folder.append(file[-3:])
-            if file[-3:] in folder:
-                year = str(create_date(address, file))[:10][:4]
-                os.chdir(path_sorted_files)
-                if not os.path.exists(year):
-                    os.makedirs(year)
-                os.chdir(path_sorted_files + os.sep + year)
-                create_month()
-
-
-def move_files():
-    for address, dirs, files in os.walk(file_open):
-        for file in files:
-            if file[-3:] in folder:
-                year = str(create_date(address, file))[:10][:4]
-                month = str(create_date(address, file))[:10][5:7]
-                shutil.copy2(address + os.sep + file,
-                             path_sorted_files + os.sep + year + os.sep + month + os.sep + file)
+    def create_month(self):
+        for path in range(1, 13):
+            if path > 9:
+                if not os.path.exists(str(path)):
+                    os.makedirs(str(path))
             else:
-                print('Перенос не выполнен')
+                if not os.path.exists('0' + str(path)):
+                    os.makedirs('0' + str(path))
+
+    def create_years(self):
+        for address, dirs, files in os.walk(self.file_open):
+            for file in files:
+                if file[-3:] not in self.folder:
+                    self.folder.append(file[-3:])
+                if file[-3:] in self.folder:
+                    year = str(self.create_date(address, file))[:10][:4]
+                    os.chdir(self.path_sorted_files)
+                    if not os.path.exists(year):
+                        os.makedirs(year)
+                    os.chdir(self.path_sorted_files + os.sep + year)
+                    self.create_month()
+
+    def move_files(self):
+        for address, dirs, files in os.walk(self.file_open):
+            for file in files:
+                if file[-3:] in self.folder:
+                    year = str(self.create_date(address, file))[:10][:4]
+                    month = str(self.create_date(address, file))[:10][5:7]
+                    shutil.copy2(address + os.sep + file,
+                                 self.path_sorted_files + os.sep + year + os.sep + month + os.sep + file)
+                else:
+                    print('Перенос не выполнен')
+
+    def run(self):
+        self.create_years()
+        self.move_files()
 
 
-create_years()
-move_files()
+sorted_files = SortedFiles()
+sorted_files.run()
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
