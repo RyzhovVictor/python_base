@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import os
-from datetime import datetime
+import datetime
 import shutil
 import time
 
@@ -41,33 +41,57 @@ import time
 #   см https://refactoring.guru/ru/design-patterns/template-method
 #   и https://gitlab.skillbox.ru/vadim_shandrinov/python_base_snippets/snippets/4
 
+
 folder = []
-file_open = os.walk(r'E:\Users\Desktop\Vito\Python\python_base\icons')
+file_open = r'E:\Users\Desktop\Vito\Python\python_base\icons'
+path_sorted_files = r'E:\Users\Desktop\Vito\Python\python_base\icons_by_year'
 
 
-def working_file():
-    for address, dirs, files in file_open:
-        folder.append(files)
-        for file in files:
-            create_time = os.path.getmtime(address + '/' + file)
-            print_datetime = datetime.fromtimestamp(create_time)
-            print(f'|{address}\{file} {"":-^15}{">"} {print_datetime} ')
+def create_date(address, file):
+    create_time = os.path.getmtime(address + '/' + file)
+    print_datetime = datetime.datetime.fromtimestamp(create_time)
+    print(f'|{address}\{file} {"":-^15}{">"} {print_datetime}|')
+    return datetime.datetime.fromtimestamp(create_time)
 
 
-def create_folder():
-    workspace = os.getcwd()
-    folders = r'icons_by_year'
-    way = os.path.join(workspace + os.sep + folders)
+def create_month():
     for path in range(1, 13):
         if path > 9:
-            if not os.path.exists(str(way)):
-                os.makedirs(str(way))
-                print("create folder with path {0}".format(way))
+            if not os.path.exists(str(path)):
+                os.makedirs(str(path))
+        else:
+            if not os.path.exists('0' + str(path)):
+                os.makedirs('0' + str(path))
+
+
+def create_years():
+    for address, dirs, files in os.walk(file_open):
+        for file in files:
+            if file[-3:] not in folder:
+                folder.append(file[-3:])
+            if file[-3:] in folder:
+                year = str(create_date(address, file))[:10][:4]
+                os.chdir(path_sorted_files)
+                if not os.path.exists(year):
+                    os.makedirs(year)
+                os.chdir(path_sorted_files + os.sep + year)
+                create_month()
+
+
+def move_files():
+    for address, dirs, files in os.walk(file_open):
+        for file in files:
+            if file[-3:] in folder:
+                year = str(create_date(address, file))[:10][:4]
+                month = str(create_date(address, file))[:10][5:7]
+                shutil.copy2(address + os.sep + file,
+                             path_sorted_files + os.sep + year + os.sep + month + os.sep + file)
             else:
-                print("folder exists {0}".format(way))
+                print('Перенос не выполнен')
 
 
-create_folder()
+create_years()
+move_files()
 
 # Усложненное задание (делать по желанию)
 # Нужно обрабатывать zip-файл, содержащий фотографии, без предварительного извлечения файлов в папку.
