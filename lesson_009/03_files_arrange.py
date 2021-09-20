@@ -3,7 +3,7 @@
 import os
 import datetime
 import shutil
-import time
+
 
 # Нужно написать скрипт для упорядочивания фотографий (вообще любых файлов)
 # Скрипт должен разложить файлы из одной папки по годам и месяцам в другую.
@@ -48,9 +48,9 @@ path_sorted_files = r'E:\Users\Desktop\Vito\Python\python_base\icons_by_year'
 
 
 def create_date(address, file):
-    create_time = os.path.getmtime(address + '/' + file)
+    create_time = os.path.getmtime(address + os.sep + file)
     print_datetime = datetime.datetime.fromtimestamp(create_time)
-    print(f'|{address}\{file} {"":-^15}{">"} {print_datetime}|')
+    print(f'|{address}{os.sep}{file} {"":-^15}{">"} {print_datetime}|')
     return datetime.datetime.fromtimestamp(create_time)
 
 
