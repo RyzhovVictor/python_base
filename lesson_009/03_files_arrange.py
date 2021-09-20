@@ -43,8 +43,8 @@ import shutil
 
 
 folder = []
-file_open = r'E:\Users\Desktop\Vito\Python\python_base\icons'
-path_sorted_files = r'E:\Users\Desktop\Vito\Python\python_base\icons_by_year'
+file_open = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons'
+path_sorted_files = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons_by_year'
 
 
 def create_date(address, file):
