@@ -45,6 +45,7 @@ class SortedFiles:
 
     def __init__(self):
         self.folder = []
+        # TODO абсолютный путь использовать не стоит, только относительные!
         self.file_open = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons'
         self.path_sorted_files = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons_by_year'
 
@@ -55,6 +56,10 @@ class SortedFiles:
         return datetime.datetime.fromtimestamp(create_time)
 
     def create_month(self):
+        # TODO вы можете сформировать путь полностью и один раз передать его в makedirs
+        # TODO это рекурсивная функция, которая создаст все нужные папки
+        # TODO а если добавить параметр exist_ok=True
+        # TODO то и ошибок не будет, связанных с существующими папками
         for path in range(1, 13):
             if path > 9:
                 if not os.path.exists(str(path)):
@@ -77,6 +82,7 @@ class SortedFiles:
                     self.create_month()
 
     def move_files(self):
+        # TODO в идеале вам бы оставить один цикл, чтобы сразу при проходе по файлам переносить их
         for address, dirs, files in os.walk(self.file_open):
             for file in files:
                 if file[-3:] in self.folder:
