@@ -55,50 +55,22 @@ class SortedFiles:
         print(f'|{address}{os.sep}{file} {"":-^15}{">"} {print_datetime}|')
         return datetime.datetime.fromtimestamp(create_time)
 
-    def create_month(self):
-        # TODO вы можете сформировать путь полностью и один раз передать его в makedirs
-        # TODO это рекурсивная функция, которая создаст все нужные папки
-        # TODO а если добавить параметр exist_ok=True
-        # TODO то и ошибок не будет, связанных с существующими папками
-        for path in range(1, 13):
-            if path > 9:
-                if not os.path.exists(str(path)):
-                    os.makedirs(str(path))
-            else:
-                if not os.path.exists('0' + str(path)):
-                    os.makedirs('0' + str(path))
-
-    def create_years(self):
-        for address, dirs, files in os.walk(self.file_open):
-            for file in files:
-                if file[-3:] not in self.folder:
-                    self.folder.append(file[-3:])
-                if file[-3:] in self.folder:
-                    year = str(self.create_date(address, file))[:10][:4]
-                    os.chdir(self.path_sorted_files)
-                    if not os.path.exists(year):
-                        os.makedirs(year)
-                    os.chdir(self.path_sorted_files + os.sep + year)
-                    self.create_month()
-
     def move_files(self):
-        # TODO в идеале вам бы оставить один цикл, чтобы сразу при проходе по файлам переносить их
         for address, dirs, files in os.walk(self.file_open):
             for file in files:
-                if file in 'address-book-new.png':
+                if file not in self.folder:
+                    self.folder.append(file)
+                if file in self.folder:
                     year = str(self.create_date(address, file))[:10][:4]
                     month = str(self.create_date(address, file))[:10][5:7]
-                    os.makedirs(self.path_sorted_files + os.sep + year + os.sep + month)
-                # if file[-3:] in self.folder:
-                #     year = str(self.create_date(address, file))[:10][:4]
-                #     month = str(self.create_date(address, file))[:10][5:7]
+                    if not os.path.exists(self.path_sorted_files + os.sep + year + os.sep + month):
+                        os.makedirs(self.path_sorted_files + os.sep + year + os.sep + month)
                     shutil.copy2(address + os.sep + file,
                                  self.path_sorted_files + os.sep + year + os.sep + month + os.sep + file)
                 else:
                     print('Перенос не выполнен')
 
     def run(self):
-        # self.create_years()
         self.move_files()
 
 
