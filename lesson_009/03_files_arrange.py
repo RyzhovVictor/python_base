@@ -60,11 +60,12 @@ class SortedFiles:
             for file in files:
                 if file not in self.folder:
                     self.folder.append(file)
-                if file in self.folder:
+                if file in self.folder:  # TODO на этом этапе file явно будет в self.folder, проверку можно убрать
                     year = str(self.create_date(address, file))[:10][:4]
                     month = str(self.create_date(address, file))[:10][5:7]
                     if not os.path.exists(self.path_sorted_files + os.sep + year + os.sep + month):
-                        os.makedirs(self.path_sorted_files + os.sep + year + os.sep + month)
+                        os.makedirs(self.path_sorted_files + os.sep + year + os.sep + month)  # TODO тут можно добавить параметр exist_ok=True
+                        # TODO тогда проверку os.path.exists можно будет убрать
                     shutil.copy2(address + os.sep + file,
                                  self.path_sorted_files + os.sep + year + os.sep + month + os.sep + file)
                 else:
