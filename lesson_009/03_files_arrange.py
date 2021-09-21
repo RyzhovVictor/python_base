@@ -45,9 +45,9 @@ class SortedFiles:
 
     def __init__(self):
         self.folder = []
-        # TODO абсолютный путь использовать не стоит, только относительные!
-        self.file_open = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons'
-        self.path_sorted_files = r'C:\Users\ryzho\PycharmProjects\python_base\lesson_009\icons_by_year'
+        self.parent_dir = os.path.dirname(os.path.abspath(r'lesson_009'))
+        self.file_open = (self.parent_dir + os.sep + r'icons')
+        self.path_sorted_files = (self.parent_dir + os.sep + r'icons_by_year')
 
     def create_date(self, address, file):
         create_time = os.path.getmtime(address + os.sep + file)
