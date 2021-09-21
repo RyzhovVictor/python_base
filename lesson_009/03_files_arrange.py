@@ -85,16 +85,20 @@ class SortedFiles:
         # TODO в идеале вам бы оставить один цикл, чтобы сразу при проходе по файлам переносить их
         for address, dirs, files in os.walk(self.file_open):
             for file in files:
-                if file[-3:] in self.folder:
+                if file in 'address-book-new.png':
                     year = str(self.create_date(address, file))[:10][:4]
                     month = str(self.create_date(address, file))[:10][5:7]
+                    os.makedirs(self.path_sorted_files + os.sep + year + os.sep + month)
+                # if file[-3:] in self.folder:
+                #     year = str(self.create_date(address, file))[:10][:4]
+                #     month = str(self.create_date(address, file))[:10][5:7]
                     shutil.copy2(address + os.sep + file,
                                  self.path_sorted_files + os.sep + year + os.sep + month + os.sep + file)
                 else:
                     print('Перенос не выполнен')
 
     def run(self):
-        self.create_years()
+        # self.create_years()
         self.move_files()
 
 
