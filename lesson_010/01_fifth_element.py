@@ -10,12 +10,14 @@ try:
     result = BRUCE_WILLIS * leeloo
     print(f'- Leeloo Dallas! Multi-pass № {result}!')
     if input_data > str(len(input_data[4])):
-        raise BaseException('Вы ввели больше 5 значений')
+        raise Exception('Вы ввели больше 5 значений')
 except ValueError:
     print('Нужно писать цифры')
 except IndexError:
     print('Нужно ввести 5 цифр')
-# TODO нужно в конце добавить общий except, с общим исключением, например Exception
+except Exception as exc:
+    print(f'Вы ввели больше 5 значений {exc.args}')
+
 
 # Ообернуть код и обработать исключительные ситуации для произвольных входных параметров
 # - ValueError - невозможно преобразовать к числу
