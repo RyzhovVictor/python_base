@@ -32,9 +32,16 @@ def one_day():
     file_log = f'| Сегодня я '
     dice = random.randint(1, 13)
     carma = random.randint(1, 7)
+    # TODO Нам нужно симулировать вероятность 1 к 13. Т.е. приступать к выбору исключения
+    # TODO надо тогда, когда мы поймаем одно из чисел от 1 до 13, например 1
+    # TODO сейчас же вероятность выше :)
+    # TODO можно добавить ещё одно случайное число, уже в нужном нам диапазоне
+    # TODO а можно использовать random.choice для выбора случайного исключения из набора
+    # TODO (например из списка, в котором можно хранить эти исключения)
     if dice == 1:
-        try:
-            raise BaseException('IamGodError')
+        try:  # TODO в этой функции не нужно добавлять try/except блок
+            # TODO эта функция должна либо вернуть карму, либо вызвать ошибку, обрабатывать её уже не надо
+            raise BaseException('IamGodError')  # TODO все эти ошибки нужно создавать вручную
         except BaseException as exc:
             printed()
             print(f'{file_log}{exc.args}{"|":^47}')
@@ -100,9 +107,10 @@ def parse_log():
         print(f'{"-":->80}')
 
 
-while True:
+while True:  # TODO вместо True здесь можно условие выхода из цикла прописать
     print(f'{total_carma} - Ух! Карма растет!')
     if total_carma <= ENLIGHTENMENT_CARMA_LEVEL:
+        # TODO вот здесь можно добавить try/except
         total_carma += one_day()
     else:
         break
