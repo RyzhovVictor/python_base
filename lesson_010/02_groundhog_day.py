@@ -30,24 +30,15 @@ excep = []
 
 def one_day():
     file_log = f'| Сегодня я '
-    dice = random.randint(1, 13)
+    dice = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13)
     carma = random.randint(1, 7)
-    # TODO Нам нужно симулировать вероятность 1 к 13. Т.е. приступать к выбору исключения
-    # TODO надо тогда, когда мы поймаем одно из чисел от 1 до 13, например 1
-    # TODO сейчас же вероятность выше :)
-    # TODO можно добавить ещё одно случайное число, уже в нужном нам диапазоне
-    # TODO а можно использовать random.choice для выбора случайного исключения из набора
-    # TODO (например из списка, в котором можно хранить эти исключения)
-    if dice == 1:
-        try:  # TODO в этой функции не нужно добавлять try/except блок
-            # TODO эта функция должна либо вернуть карму, либо вызвать ошибку, обрабатывать её уже не надо
-            raise BaseException('IamGodError')  # TODO все эти ошибки нужно создавать вручную
-        except BaseException as exc:
-            printed()
-            print(f'{file_log}{exc.args}{"|":^47}')
-            printed()
-            excep.append(exc.args)
-    if dice == 2:
+    if carma == random.choice(dice):
+        raise Exception('IamGodError')
+    printed()
+    print(f'{file_log}{exc.args}{"|":^47}')
+    printed()
+    excep.append(exc.args)
+    if carma == random.choice(dice):
         try:
             raise BaseException('DrunkError')
         except BaseException as exc:
@@ -55,7 +46,7 @@ def one_day():
             print(f'{file_log}{exc.args}{"|":^49}')
             printed()
             excep.append(exc.args)
-    if dice == 3:
+    if carma == random.choice(dice):
         try:
             raise BaseException('CarCrashError')
         except BaseException as exc:
@@ -63,7 +54,7 @@ def one_day():
             print(f'{file_log}{exc.args}{"|":^44}')
             printed()
             excep.append(exc.args)
-    if dice == 4:
+    if carma == random.choice(dice):
         try:
             raise BaseException('GluttonyError')
         except BaseException as exc:
@@ -71,7 +62,7 @@ def one_day():
             print(f'{file_log}{exc.args}{"|":^44}')
             printed()
             excep.append(exc.args)
-    if dice == 5:
+    if carma == random.choice(dice):
         try:
             raise BaseException('DepressionError')
         except BaseException as exc:
@@ -79,7 +70,7 @@ def one_day():
             print(f'{file_log}{exc.args}{"|":^40}')
             printed()
             excep.append(exc.args)
-    if dice == 6:
+    if carma == random.choice(dice):
         try:
             raise BaseException('SuicideError')
         except BaseException as exc:
