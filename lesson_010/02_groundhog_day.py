@@ -18,103 +18,56 @@
 # базовых встроенных исключений.
 import random
 
-ENLIGHTENMENT_CARMA_LEVEL = 777
 
-
-def printed():
-    print(f'+{"+":-^50}+')
-
-
-excep = []
-
-
-def one_day():
-    file_log = f'| Сегодня я '
-    dice = random.randint(1, 13)
-    carma = random.randint(1, 7)
-    # TODO Нам нужно симулировать вероятность 1 к 13. Т.е. приступать к выбору исключения
-    # TODO надо тогда, когда мы поймаем одно из чисел от 1 до 13, например 1
-    # TODO сейчас же вероятность выше :)
-    # TODO можно добавить ещё одно случайное число, уже в нужном нам диапазоне
-    # TODO а можно использовать random.choice для выбора случайного исключения из набора
-    # TODO (например из списка, в котором можно хранить эти исключения)
-    if dice == 1:
-        try:  # TODO в этой функции не нужно добавлять try/except блок
-            # TODO эта функция должна либо вернуть карму, либо вызвать ошибку, обрабатывать её уже не надо
-            raise BaseException('IamGodError')  # TODO все эти ошибки нужно создавать вручную
-        except BaseException as exc:
-            printed()
-            print(f'{file_log}{exc.args}{"|":^47}')
-            printed()
-            excep.append(exc.args)
-    if dice == 2:
-        try:
-            raise BaseException('DrunkError')
-        except BaseException as exc:
-            printed()
-            print(f'{file_log}{exc.args}{"|":^49}')
-            printed()
-            excep.append(exc.args)
-    if dice == 3:
-        try:
-            raise BaseException('CarCrashError')
-        except BaseException as exc:
-            printed()
-            print(f'{file_log}{exc.args}{"|":^44}')
-            printed()
-            excep.append(exc.args)
-    if dice == 4:
-        try:
-            raise BaseException('GluttonyError')
-        except BaseException as exc:
-            printed()
-            print(f'{file_log}{exc.args}{"|":^44}')
-            printed()
-            excep.append(exc.args)
-    if dice == 5:
-        try:
-            raise BaseException('DepressionError')
-        except BaseException as exc:
-            printed()
-            print(f'{file_log}{exc.args}{"|":^40}')
-            printed()
-            excep.append(exc.args)
-    if dice == 6:
-        try:
-            raise BaseException('SuicideError')
-        except BaseException as exc:
-            printed()
-            print(f'{file_log}{exc.args}{"|":^45}')
-            printed()
-            excep.append(exc.args)
-    return carma
-
-
-total_carma = 0
-
-
-def parse_log():
+class Carma:
+    ENLIGHTENMENT_CARMA_LEVEL = 777
     count = 0
-    print(f'{"|":*<79}|')
-    print(f'{"|":<79}|')
-    print(f'|{"":>30}{"PARSE LOG EXCEPTION"}{"":<29}|')
-    print(f'{"|":<79}|')
-    print(f'{"|":*<79}|')
-    for line in excep:
-        count += 1
-        print(f'{"-":->80}')
-        print(f'Исключения {">":->15} {line}, {">":->15} счетчик - {count}')
-        print(f'{"-":->80}')
+
+    def get_target_karma(self):
+        return self.ENLIGHTENMENT_CARMA_LEVEL
+
+    def get_karma(self):
+        return self.count
+
+    def set_karma(self, point):
+        self.count += point
+
+    def reach_enlightenment(self):
+        if self.get_karma() >= self.get_target_karma():
+            return True
 
 
-while True:  # TODO вместо True здесь можно условие выхода из цикла прописать
-    print(f'{total_carma} - Ух! Карма растет!')
-    if total_carma <= ENLIGHTENMENT_CARMA_LEVEL:
-        # TODO вот здесь можно добавить try/except
-        total_carma += one_day()
+def one_day(life):
+    sin_num = random.randint(1, 10)
+    sins = ['KillError', 'DrunkError', 'CarCrashError', 'GluttonyError', 'DepressionError']
+
+    try:
+        if sin_num == 10:
+            raise BaseException
+    except BaseException:
+        exception = random.choice(sins)
+        return exception
     else:
-        break
+        life.set_karma(random.randint(1, 7))
 
-parse_log()
+
+human = Carma()
+days_passed = 0
+parse_sins = []
+
+while True:
+    if human.reach_enlightenment():
+        print(f'|{"+":*^35}|')
+        print(f'| {"": ^} Карма накопилась через {days_passed} дней {" ": ^1}|')
+        print(f'|{"+":*^35}|')
+        break
+    else:
+        x = one_day(human)
+        days_passed += 1
+        if x is not None:
+            parse_sins.append(x)
+
+print('Запись исключений в лог:')
+print('\n'.join(parse_sins))
 
 # https://goo.gl/JnsDqu
