@@ -71,3 +71,4 @@ print('Запись исключений в лог:')
 print('\n'.join(parse_sins))
 
 # https://goo.gl/JnsDqu
+#зачёт!
