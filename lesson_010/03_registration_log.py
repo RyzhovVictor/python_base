@@ -86,3 +86,4 @@ with open('registrations_good.log', 'w', encoding='utf-8') as f:
     f.write('\n'.join(good_acc))
 with open('registrations_bad.log', 'w', encoding='utf-8') as f:
     f.write('\n'.join(bad_acc))
+#зачёт!
