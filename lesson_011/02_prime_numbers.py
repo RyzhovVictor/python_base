@@ -34,23 +34,18 @@ class PrimeNumbers:
 
     def get_prime_numbers(self):
         self.i += 1
-        for number in range(2, self.n + 1):  # TODO не стоит проверять каждый раз с 2
-            # TODO можно начинать проверку с предыдущего простого числа
-            # TODO хотя тут вообще этот цикл не нужен, у нас же в next есть цикл while self.i < self.n:
-            # TODO нужно оставить либо его, либо этот
-            for prime in self.prime_numbers:
-                if number % prime == 0:
-                    break
-            else:
-                self.prime_numbers.append(number)
-                # TODO если этот метод проверяет текущее число, то тут надо возвращать True
-        return self.prime_number  # TODO возвращать self.prime не стоит, иначе проверка всегда будет равна True
+        for prime in self.prime_numbers:
+            if self.i % prime == 0:
+                return None
+        self.prime_numbers.append(self.i)
+        return self.i
 
     def __next__(self):
-        while self.i < self.n:
-            if self.get_prime_numbers():
-                self.prime_numbers.append(self.i)
-                return self.i
+        value = None
+        while value is None:
+            value = self.get_prime_numbers()
+        if self.i < self.n:
+            return value
         else:
             raise StopIteration()
 
@@ -58,6 +53,8 @@ class PrimeNumbers:
 prime_number_iterator = PrimeNumbers(n=10000)
 for number in prime_number_iterator:
     print(number)
+
+
 # TODO
 #  2
 #  3
