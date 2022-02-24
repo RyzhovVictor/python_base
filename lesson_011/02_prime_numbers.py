@@ -22,48 +22,38 @@
 # Распечатать все простые числа до 10000 в столбик
 
 
-class PrimeNumbers:
-    def __init__(self, n):
-        self.prime_numbers = []
-        self.n = n
-        self.i = 0
+# class PrimeNumbers:
+#     def __init__(self, n):
+#         self.prime_numbers = []
+#         self.n = n
+#         self.i = 0
+#
+#     def __iter__(self):
+#         self.i = 1
+#         return self
+#
+#     def get_prime_numbers(self):
+#         self.i += 1
+#         for prime in self.prime_numbers:
+#             if self.i % prime == 0:
+#                 return None
+#         self.prime_numbers.append(self.i)
+#         return self.i
+#
+#     def __next__(self):
+#         value = None
+#         while value is None:
+#             value = self.get_prime_numbers()
+#         if self.i < self.n:
+#             return value
+#         else:
+#             raise StopIteration()
+#
+#
+# prime_number_iterator = PrimeNumbers(n=10000)
+# for number in prime_number_iterator:
+#     print(number)
 
-    def __iter__(self):
-        self.i = 1
-        return self
-
-    def get_prime_numbers(self):
-        self.i += 1
-        for prime in self.prime_numbers:
-            if self.i % prime == 0:
-                return None
-        self.prime_numbers.append(self.i)
-        return self.i
-
-    def __next__(self):
-        value = None
-        while value is None:
-            value = self.get_prime_numbers()
-        if self.i < self.n:
-            return value
-        else:
-            raise StopIteration()
-
-
-prime_number_iterator = PrimeNumbers(n=10000)
-for number in prime_number_iterator:
-    print(number)
-
-
-# TODO
-#  2
-#  3
-#  4  -- возвращаются и простые числа тоже
-#  5
-#  6
-#  7
-#  8
-#  9
 
 # TODO после подтверждения части 1 преподователем, можно делать
 # Часть 2
@@ -72,8 +62,14 @@ for number in prime_number_iterator:
 
 
 def prime_numbers_generator(n):
-    pass
-    # TODO здесь ваш код
+    prime_numbers = []
+    for number in range(2, n + 1):
+        for prime in prime_numbers:
+            if not number % prime:
+                break
+        else:
+            prime_numbers.append(number)
+            yield number
 
 
 for number in prime_numbers_generator(n=10000):
