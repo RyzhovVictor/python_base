@@ -4,15 +4,16 @@
 # Есть функция генерации списка простых чисел
 
 
-def get_prime_numbers(n):
-    prime_numbers = []
-    for number in range(2, n + 1):
-        for prime in prime_numbers:
-            if number % prime == 0:
-                break
-        else:
-            prime_numbers.append(number)
-    return prime_numbers
+# def get_prime_numbers(n):
+#     prime_numbers = []
+#     for number in range(2, n + 1):
+#         for prime in prime_numbers:
+#             if number % prime == 0:
+#                 break
+#         else:
+#             prime_numbers.append(number)
+#     return prime_numbers
+
 
 # Часть 1
 # На основе алгоритма get_prime_numbers создать класс итерируемых обьектов,
@@ -22,8 +23,32 @@ def get_prime_numbers(n):
 
 
 class PrimeNumbers:
-    pass
-    # TODO здесь ваш код
+    def __init__(self, n):
+        self.prime_numbers = []
+        self.n = n
+        self.i = 0
+
+    def __iter__(self):
+        self.i = 1
+        return self
+
+    def get_prime_numbers(self):
+        self.i += 1
+        for number in range(2, self.n + 1):
+            for prime in self.prime_numbers:
+                if number % prime == 0:
+                    break
+            else:
+                self.prime_numbers.append(number)
+        return self.prime_numbers
+
+    def __next__(self):
+        while self.i < self.n:
+            if self.get_prime_numbers():
+                self.prime_numbers.append(self.i)
+                return self.i
+        else:
+            raise StopIteration()
 
 
 prime_number_iterator = PrimeNumbers(n=10000)
@@ -44,7 +69,6 @@ def prime_numbers_generator(n):
 
 for number in prime_numbers_generator(n=10000):
     print(number)
-
 
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
