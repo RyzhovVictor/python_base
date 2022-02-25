@@ -72,8 +72,26 @@ def prime_numbers_generator(n):
             yield number
 
 
-for number in prime_numbers_generator(n=10000):
-    print(number)
+def is_lucky(number):
+    number = str(number)
+    middle = len(number) // 2
+    if sum(map(int, number[:middle])) == sum(map(int, number[-middle:])):
+        return True
+    else:
+        return False
+
+
+def is_palindrome(number):
+    number = str(number)
+    reversed_number = number[::-1]
+    if number == reversed_number:
+        return 'is a palindrome'
+    else:
+        return 'is not palindrome'
+
+
+for i in prime_numbers_generator(100000):
+    print(f'{i} - {is_lucky(i)}, {i} - {is_palindrome(i)}')
 
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
