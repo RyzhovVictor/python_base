@@ -60,9 +60,10 @@
 # Теперь нужно создать генератор, который выдает последовательность простых чисел до n
 # Распечатать все простые числа до 10000 в столбик
 
+prime_numbers = []
+
 
 def prime_numbers_generator(n):
-    prime_numbers = []
     for number in range(2, n + 1):
         for prime in prime_numbers:
             if not number % prime:
@@ -90,8 +91,16 @@ def is_palindrome(number):
         return 'is not palindrome'
 
 
+def is_sum(number):
+    number = str(number)
+    if sum(map(int, number)) in prime_numbers:
+        return True
+    else:
+        return False
+
+
 for i in prime_numbers_generator(100000):
-    print(f'{i} - {is_lucky(i)}, {i} - {is_palindrome(i)}')
+    print(f'{i} - {is_lucky(i)}, {i} - {is_palindrome(i)}, {i} - {is_sum(i)}')
 
 # Часть 3
 # Написать несколько функций-фильтров, которые выдает True, если число:
