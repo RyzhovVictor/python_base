@@ -33,9 +33,10 @@ class Events:
                     line = line[1:self.group]
                     if line in self.stat:
                         self.stat[line] += 1
-                        yield self.stat[line], line
+                        yield self.stat[line], line  # TODO yield нужно делать только тогда, когда находится новая минута
                     else:
                         self.stat[line] = 1
+                        # TODO т.е. вот тут, в else надо выполнять yield + один yield после цикла, чтобы вернуть последнюю запись
             except StopIteration:
                 break
 
