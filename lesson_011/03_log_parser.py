@@ -14,4 +14,36 @@
 #
 # [2018-05-17 01:57] 1234
 
-# TODO здесь ваш код
+class Events:
+    def __init__(self, input_file):
+        self.input_file = input_file
+        self.group = 17
+        self.stat = {}
+
+    def read_minute(self):
+        with open(self.input_file, 'r', encoding='utf-8') as file:
+            yield from file
+
+    def run(self):
+        gen = self.read_minute()
+        while True:
+            try:
+                line = next(gen)
+                if 'NOK' in line:
+                    line = line[1:self.group]
+                    if line in self.stat:
+                        self.stat[line] += 1
+                        yield self.stat[line], line
+                    else:
+                        self.stat[line] = 1
+            except StopIteration:
+                break
+
+
+file_name = "events.txt"
+parse = Events(file_name)
+
+grouped_events = parse.run()
+
+for group_time, event_count in grouped_events:
+    print(f'[{event_count}] {group_time}')
