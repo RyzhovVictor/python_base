@@ -33,12 +33,12 @@ class Events:
                     line = line[1:self.group]
                     if line in self.stat:
                         self.stat[line] += 1
-                        yield self.stat[line], line  # TODO yield нужно делать только тогда, когда находится новая минута
                     else:
                         self.stat[line] = 1
-                        # TODO т.е. вот тут, в else надо выполнять yield + один yield после цикла, чтобы вернуть последнюю запись
+                        yield line, self.stat[line]
             except StopIteration:
                 break
+        yield self.stat, self.run()
 
 
 file_name = "events.txt"
@@ -47,4 +47,4 @@ parse = Events(file_name)
 grouped_events = parse.run()
 
 for group_time, event_count in grouped_events:
-    print(f'[{event_count}] {group_time}')
+    print(f'[{group_time}] {event_count}')
