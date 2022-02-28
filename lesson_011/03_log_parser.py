@@ -35,12 +35,15 @@ class Events:
                         self.stat[line] += 1
                     else:
                         self.stat[line] = 1
-                        yield line, self.stat[line]  # TODO так вы будете возвращать текущую минуту и всегда с единичкой
+                        yield line, self.stat[line]
+                        print(self.stat[line])
+                        # print(line)
+                        # TODO так вы будете возвращать текущую минуту и всегда с единичкой
                         # TODO а надо вернуть прошлую
             except StopIteration:
                 break
-        yield self.stat, self.run()  # TODO рекурсию не нужно создавать, здесь так же надо вернуть line и stat[line] (здесь уже текущую)
 
+        print(self.stat)
         # TODO т.е. вся цепочка идет так
         # TODO текущие минуты считаем --> находим новую минуту --> отправляем старую минуту yield-ом --> обновляем старую минуту на текущую --> считаем текущую и повторяем всё
         # TODO в конце, когда строки кончились - после цикла выполняем возврат того, что осталось в line и stat[line]
