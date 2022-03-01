@@ -31,18 +31,22 @@ class Events:
                 line = next(gen)
                 if 'NOK' in line:
                     line = line[1:self.group]
-                    if line in self.stat:
+                    old_min = line[1:self.group]
+                    if line and old_min in self.stat:
                         self.stat[line] += 1
                     else:
+                        old_min = self.stat[line]
                         self.stat[line] = 1
-                        yield count, self.stat[count]
+                        yield old_min, self.stat[old_min]
+                        old_min = line
                     # print(self.stat[line])
                     # print(line)
                     # print(old_line)
                     # TODO так вы будете возвращать текущую минуту и всегда с единичкой
                     # TODO а надо вернуть прошлую
             except StopIteration:
-                return self.stat
+                # print(self.stat)
+                return
 
 
 # TODO т.е. вся цепочка идет так
