@@ -26,16 +26,25 @@ class Events:
 
     def run(self):
         gen = self.read_minute()
+        # TODO изначально создайте old min = None
         while True:
             try:
                 line = next(gen)
                 if 'NOK' in line:
+                    # TODO Вот тут, внутри, проверьте - old min is None?
+                    # TODO если да, то запишите в неё текущую линию
                     line = line[1:self.group]
-                    old_min = line[1:self.group]
+                    old_min = line[1:self.group]  # TODO это действие надо
+                    # будет убрать (внутрь проверки)
                     if line and old_min in self.stat:
+                        # TODO проверка некорректная, Line не будет проверен
+                        #  внутри self.stat
+                        # TODO Да и в целом old min не нужно в проверки
+                        #  добавлять
                         self.stat[line] += 1
                     else:
-                        old_min = self.stat[line]
+                        old_min = self.stat[line]  # TODO это действие
+                        # выполнять не нужно
                         self.stat[line] = 1
                         yield old_min, self.stat[old_min]
                         old_min = line
