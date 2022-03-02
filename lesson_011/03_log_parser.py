@@ -32,15 +32,14 @@ class Events:
                 line_raw = next(gen)
                 if 'NOK' in line_raw:
                     line = line_raw[1:self.group]
-                    if old_min is None:
-                        old_min = line_raw[1:self.group]
                     if line in self.stat:
                         self.stat[line] += 1
                     else:
                         self.stat[line] = 1
-                        if self.stat[line] != 1:
-                            continue
-                        yield old_min, self.stat[old_min]
+                        # TODO чтобы не мучаться можно перенести сюда
+                        #  проверку old_min
+                        if old_min is not None:
+                            yield old_min, self.stat[old_min]
                         old_min = line
             except StopIteration:
                 break
