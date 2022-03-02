@@ -34,15 +34,16 @@ class Events:
                     line = line[1:self.group]
                     if old_min is None:
                         old_min = line[0:self.group]
+                    else:
                         if line in self.stat:
                             self.stat[line] += 1
                         else:
                             self.stat[line] = 1
                             yield old_min, self.stat[old_min]
+                            # print(old_min)
                             old_min = line
             except StopIteration:
                 break
-            yield self.stat[line], line
 
 
 
@@ -58,3 +59,4 @@ grouped_events = parse.run()
 
 for group_time, event_count in grouped_events:
     print(f'[{group_time}] {event_count}')
+
