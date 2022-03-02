@@ -26,36 +26,24 @@ class Events:
 
     def run(self):
         gen = self.read_minute()
-        # TODO изначально создайте old min = None
+        old_min = None
         while True:
             try:
                 line = next(gen)
                 if 'NOK' in line:
-                    # TODO Вот тут, внутри, проверьте - old min is None?
-                    # TODO если да, то запишите в неё текущую линию
                     line = line[1:self.group]
-                    old_min = line[1:self.group]  # TODO это действие надо
-                    # будет убрать (внутрь проверки)
-                    if line and old_min in self.stat:
-                        # TODO проверка некорректная, Line не будет проверен
-                        #  внутри self.stat
-                        # TODO Да и в целом old min не нужно в проверки
-                        #  добавлять
-                        self.stat[line] += 1
-                    else:
-                        old_min = self.stat[line]  # TODO это действие
-                        # выполнять не нужно
-                        self.stat[line] = 1
-                        yield old_min, self.stat[old_min]
-                        old_min = line
-                    # print(self.stat[line])
-                    # print(line)
-                    # print(old_line)
-                    # TODO так вы будете возвращать текущую минуту и всегда с единичкой
-                    # TODO а надо вернуть прошлую
+                    if old_min is None:
+                        old_min = line[0:self.group]
+                        if line in self.stat:
+                            self.stat[line] += 1
+                        else:
+                            self.stat[line] = 1
+                            yield old_min, self.stat[old_min]
+                            old_min = line
             except StopIteration:
-                # print(self.stat)
-                return
+                break
+            yield self.stat[line], line
+
 
 
 # TODO т.е. вся цепочка идет так
