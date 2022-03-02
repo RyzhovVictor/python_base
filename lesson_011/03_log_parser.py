@@ -29,21 +29,26 @@ class Events:
         old_min = None
         while True:
             try:
-                line = next(gen)
-                if 'NOK' in line:
-                    line = line[1:self.group]
+                line_raw = next(gen)  # TODO нужно разделять оригинал строки
+                # TODO и обрезанную его версию (чтобы не было путаницы)
+                if 'NOK' in line_raw:
+                    line = line_raw[1:self.group]
                     if old_min is None:
-                        old_min = line[0:self.group]
+                        old_min = line_raw[1:self.group]  # TODO почему тут срез
+                        # от 0, а выше срез от 1? (поправил на 1)
+                    # TODO код ниже не нужно помещать внутрь ифа if old_min is None:
+                    if line in self.stat:
+                        self.stat[line] += 1
                     else:
-                        if line in self.stat:
-                            self.stat[line] += 1
-                        else:
-                            self.stat[line] = 1
-                            yield old_min, self.stat[old_min]
-                            # print(old_min)
-                            old_min = line
+                        self.stat[line] = 1
+                        # TODO Тут ещё по-хорошему надо проверку сделать
+                        # TODO чтобы первая минута не попадала в yield
+                        yield old_min, self.stat[old_min]
+                        old_min = line
             except StopIteration:
                 break
+        yield self.stat[line], line  # TODO сперва идёт строка, потом минута
+        # TODO этот yield надо вызывать после цикла while
 
 
 
@@ -59,4 +64,3 @@ grouped_events = parse.run()
 
 for group_time, event_count in grouped_events:
     print(f'[{group_time}] {event_count}')
-
