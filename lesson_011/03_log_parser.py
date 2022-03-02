@@ -36,8 +36,6 @@ class Events:
                         self.stat[line] += 1
                     else:
                         self.stat[line] = 1
-                        # TODO чтобы не мучаться можно перенести сюда
-                        #  проверку old_min
                         if old_min is not None:
                             yield old_min, self.stat[old_min]
                         old_min = line
