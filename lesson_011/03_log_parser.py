@@ -29,32 +29,22 @@ class Events:
         old_min = None
         while True:
             try:
-                line_raw = next(gen)  # TODO нужно разделять оригинал строки
-                # TODO и обрезанную его версию (чтобы не было путаницы)
+                line_raw = next(gen)
                 if 'NOK' in line_raw:
                     line = line_raw[1:self.group]
                     if old_min is None:
-                        old_min = line_raw[1:self.group]  # TODO почему тут срез
-                        # от 0, а выше срез от 1? (поправил на 1)
-                    # TODO код ниже не нужно помещать внутрь ифа if old_min is None:
+                        old_min = line_raw[1:self.group]
                     if line in self.stat:
                         self.stat[line] += 1
                     else:
                         self.stat[line] = 1
-                        # TODO Тут ещё по-хорошему надо проверку сделать
-                        # TODO чтобы первая минута не попадала в yield
+                        if self.stat[line] != 1:
+                            continue
                         yield old_min, self.stat[old_min]
                         old_min = line
             except StopIteration:
                 break
-        yield self.stat[line], line  # TODO сперва идёт строка, потом минута
-        # TODO этот yield надо вызывать после цикла while
-
-
-
-# TODO т.е. вся цепочка идет так
-# TODO текущие минуты считаем --> находим новую минуту --> отправляем старую минуту yield-ом --> обновляем старую минуту на текущую --> считаем текущую и повторяем всё
-# TODO в конце, когда строки кончились - после цикла выполняем возврат того, что осталось в line и stat[line]
+        yield line, self.stat[line]
 
 
 file_name = "events.txt"
