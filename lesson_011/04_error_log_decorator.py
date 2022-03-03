@@ -7,19 +7,35 @@
 # Формат лога: <имя функции> <параметры вызова> <тип ошибки> <текст ошибки>
 # Лог файл открывать каждый раз при ошибке в режиме 'a'
 
+def file_name(name):
+    def log_errors(func):
+        def surrogate(*args, **kwargs):
+            try:
+                return func(*args, **kwargs)
+            except ZeroDivisionError as zero_error:
+                file_1 = f'{func.__name__}: |{kwargs}| {Exception} {zero_error}\n'
+                with open(name, 'a', encoding='utf8') as file:
+                    file.write(file_1)
+                raise ZeroDivisionError
 
-def log_errors(func):
-    pass
-    # TODO здесь ваш код
+            except ValueError as value_error:
+                file_2 = f'{func.__name__}: |{args}| {Exception} {value_error}\n'
+                with open(name, 'a', encoding='utf8') as file:
+                    file.write(file_2)
+                raise ValueError
+
+        return surrogate
+
+    return log_errors
 
 
 # Проверить работу на следующих функциях
-@log_errors
+@file_name(name='perky.log')
 def perky(param):
     return param / 0
 
 
-@log_errors
+@file_name(name='function_errors.log')
 def check_line(line):
     name, email, age = line.split(' ')
     if not name.isalpha():
@@ -44,7 +60,6 @@ for line in lines:
     except Exception as exc:
         print(f'Invalid format: {exc}')
 perky(param=42)
-
 
 # Усложненное задание (делать по желанию).
 # Написать декоратор с параметром - именем файла
