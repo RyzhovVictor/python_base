@@ -51,3 +51,4 @@ grouped_events = parse.run()
 
 for group_time, event_count in grouped_events:
     print(f'[{group_time}] {event_count}')
+#зачёт!
